@@ -2,11 +2,11 @@
 <extension version="2.5" type="plugin" group="system" method="upgrade">
 	<name>plg_system_addfullajax</name>
 	<author>Fedik</author>
-	<creationDate>June 2012</creationDate>
+	<creationDate>July 2010</creationDate>
 	<license>GNU/GPLv3</license>
 	<authorEmail>getthesite@gmail.com</authorEmail>
 	<authorUrl>www.getsite.org.ua</authorUrl>
-	<version>2012.06.03</version>
+	<version>2012.xx.xx</version>
 	<description><![CDATA[PLG_ADDFULLAJAX_XML_DESCRIPTION]]></description>
 
 	<files folder="addfullajax">
@@ -131,46 +131,38 @@
       </fieldset>
       <fieldset name="advanced">
 
-        <field name="cnfg_data" type="editor" rows="18" cols="43"
+        <field name="cnfg_data" type="editor" rows="23" cols="43"
         	editor="codemirror|none" buttons="false" filter="raw"
-          	default="
-FLAX.Filter.add({url:'/', id:fullAjaxId});
-FLAX.Filter.add({query:['task=weblink','task=profile','task=user.login','task=user.logout','task=article.edit'],  type:'nowrap'});
-FLAX.Filter.on('beforewrap', function(o) {
- var id = o.el.getAttribute('id');
- var regExt = /.+\.(jpg|jpeg|gif|png|mp3|mp4|ogg|ogv|webm|pdf|txt|odf|ods)$/i;
- if(id == ('login-form') || id == ('form-login') || regExt.test(o.el.href)){return false;}
-});
-FLAX.directLink();
-FLAX.Default.sprt_url = '!';
-FLAX.linkEqual['!ax!'+fullAjaxId+'!'] = 'ajx';
-FLAX.linkEqual['[~q~]'] = '?';
-FLAX.Html.onall('load', function(o){
-/* fix for mootools 'domready', uncomment if need*/
-/*window.fireEvent('domready'); */
-});
+          	default="FLAX.Filter.add({url:'/', id:fullAjaxId});&#13;&#10;
+FLAX.Filter.add({query:['task=weblink','task=profile','task=user.login','task=user.logout','task=article.edit'],  type:'nowrap'});&#13;&#10;
+FLAX.Filter.on('beforewrap', function(o) {&#13;&#10;
+ var id = o.el.getAttribute('id'), regExt = /.+\.(jpg|jpeg|gif|png|mp3|mp4|ogg|ogv|webm|pdf|txt|odf|ods)$/i;&#13;&#10;
+ if(id == ('login-form') || id == ('form-login') || (o.el.href &#38;&#38; (regExt.test(o.el.href) || o.el.href.indexOf('#') != -1))){return false;} });&#13;&#10;
+});&#13;&#10;
+FLAX.directLink();FLAX.Default.sprt_url = '!';&#13;&#10;
+FLAX.linkEqual['!ax!'+fullAjaxId+'!'] = 'ajx';FLAX.linkEqual['[~q~]'] = '?';&#13;&#10;
+/* fix for mootools 'domready', uncomment if need */&#13;&#10;
+/* FLAX.Html.onall('load', function(o){window.fireEvent('domready');}); */
 "
           label="PLG_ADDFULLAJAX_FIELD_CNFG_DATA_LABEL" description="PLG_ADDFULLAJAX_FIELD_CNFG_DATA_DESCR"/>
 
-        <field name="anim_data" type="editor" rows="23" cols="43"
+        <field name="anim_data" type="editor" rows="26" cols="43"
         	editor="codemirror|none" buttons="false" filter="raw"
-          	default="
-var fullAjaxGif = new Element('img',{
- 'id':'fullAjaxGif',
- 'src':fullAjaxBase + '/plugins/system/addfullajax/js/ajax-loader.gif',
- 'alt':'Loading...',
- 'style': 'position:absolute;margin-left:50%;z-index:800;'
-});
-FLAX.Effect.add({id:fullAjaxId, start: function(id, request){
- var h = document.id(fullAjaxId).clientHeight;
- if(!document.id('fullAjaxGif')){fullAjaxGif.setStyle('margin-top', h*0.3);fullAjaxGif.inject(fullAjaxId,'before');}
- new Fx.Morph(fullAjaxId, { duration:600, onComplete:request}).start({'height':[h, h*0.6], 'opacity':'0'});
-},
-end: function(id){
- if(document.id('fullAjaxGif')){document.id('fullAjaxGif').dispose();}
- document.id(fullAjaxId).setStyle('height','auto');
- new Fx.Tween(fullAjaxId,{ duration:300 }).start('opacity', 1);
-}
+          	default="var fullAjaxGif = new Element('img',{&#13;&#10;
+ 'id':'fullAjaxGif','alt':'Loading...',&#13;&#10;
+ 'src':fullAjaxBase + '/plugins/system/addfullajax/js/ajax-loader.gif',&#13;&#10;
+ 'style': 'position:absolute;left:50%;z-index:800;'&#13;&#10;
+});&#13;&#10;
+FLAX.Effect.add({id:fullAjaxId, start: function(id, request){&#13;&#10;
+ var h = document.id(fullAjaxId).clientHeight;&#13;&#10;
+ if(!document.id('fullAjaxGif')){fullAjaxGif.setStyle('margin-top', h*0.3);fullAjaxGif.inject(fullAjaxId,'before');}&#13;&#10;
+ new Fx.Morph(fullAjaxId, { duration:600, onComplete:request}).start({'height':[h, h*0.6], 'opacity':'0'});&#13;&#10;
+},&#13;&#10;
+end: function(id){&#13;&#10;
+ if(document.id('fullAjaxGif')){document.id('fullAjaxGif').dispose();}&#13;&#10;
+ document.id(fullAjaxId).setStyle('height','auto');&#13;&#10;
+ new Fx.Tween(fullAjaxId,{ duration:300 }).start('opacity', 1);&#13;&#10;
+}&#13;&#10;
 });
 "
           label="PLG_ADDFULLAJAX_FIELD_ANIM_DATA_LABEL" description="PLG_ADDFULLAJAX_FIELD_ANIM_DATA_DESCR"/>
@@ -201,6 +193,13 @@ end: function(id){
         <field name="debug_style" type="radio" default="0"
         	label="PLG_ADDFULLAJAX_FIELD_DEBUG_STYLE_LABEL"
         	description="PLG_ADDFULLAJAX_FIELD_DEBUG_STYLE_DESCR">
+          <option value="1">JYes</option>
+          <option value="0">JNo</option>
+        </field>
+
+        <field name="uncompressed_version" type="radio" default="0"
+        	label="PLG_ADDFULLAJAX_FIELD_UNCOMPRESSED_VERSION_LABEL"
+        	description="PLG_ADDFULLAJAX_FIELD_UNCOMPRESSED_VERSION_DESCR">
           <option value="1">JYes</option>
           <option value="0">JNo</option>
         </field>

@@ -1,7 +1,7 @@
 <?php
 /**
- * @version		2012.06.03 (0.8) use Fullajax lib v1.2.4
- * @package Add FullAjax for Joomla 2.5
+ * @version		2012.xx.xx (0.9) use Fullajax lib v1.2.7
+ * @package Add FullAjax for Joomla!
  * @author  Fedik
  * @email	getthesite@gmail.com
  * @link    http://www.getsite.org.ua
@@ -30,25 +30,40 @@ class plgSystemAddFullajax extends JPlugin
 	 */
 	protected $defTemplate    = 'system';
 
+	/**
+	 * whether is Joomla 3 or newest
+	 * @var bool
+	 */
+	protected $is_j3    = false;
+
+	/**
+	 * Constructor
+	 *
+	 * @param   object  &$subject  The object to observe
+	 * @param   array   $config    An optional associative array of configuration settings.
+	 *                             Recognized key values include 'name', 'group', 'params', 'language'
+	 *                             (this list is not meant to be comprehensive).
+	 */
+	public function __construct(&$subject, $config = array())	{
+		parent::__construct($subject, $config);
+
+		//test if Joomla 3.0
+		$this->is_j3 = version_compare(JVERSION, '3', 'ge');
+	}
 
 	/**
 	 * check whether we need ajax response
 	 */
 	public function onAfterRoute() {
 		$app = JFactory::getApplication();
-		//$session = JFactory::getSession();
 
+		if ($app->isAdmin()) {
+			return;
+		}
 
-		//$use_ajax = ($session->get('addfullajax.useAJAX', false)) ? true : false;
 		if(isset($_SERVER['HTTP_AJAX_ENGINE']) && $_SERVER['HTTP_AJAX_ENGINE'] == 'Fullajax'
 			|| $app->input->get('ax') == 'ok' // || $use_ajax
 		) {
-			//fix for joomla redirect by Cyprian Śniegota <c.sniegota@hasnet.pl>
-			//save marker in session for prevent display full page if some redirect will hapened
-			//bug if some error (404 or etc.), this marker not cleares
-			//temporary disabled, because looks like all good in new browsers
-			//$session->set('addfullajax.useAJAX', true);
-
 			$this->nedAjaxRespons = true;
 
 			//save location in header, because we cannot take it via xhr.getResponseHeader('Location');
@@ -61,16 +76,15 @@ class plgSystemAddFullajax extends JPlugin
 				);
 			$url = strtr(rawurlencode($url), $revert);
 			header('Ax-Location: ' . $url);
+
 		}
 		//compare templatestyles
-		if($app->isSite() && $this->params->get('useDiffStyle', 0) ){
-			if (isset($_SERVER['HTTP_AX_CURENT_STYLE'])) {
-				$oldStyle = explode(',', base64_decode($_SERVER['HTTP_AX_CURENT_STYLE']));
-				$nedTemplate = $app->getTemplate(true);
-				//refresh page if requested other template
-				if ($nedTemplate->id != $oldStyle[1]) {
-					$this->sendReload();
-				}
+		if($this->params->get('useDiffStyle', 1) && isset($_SERVER['HTTP_AX_CURENT_STYLE'])) {
+			$oldStyle = explode(',', base64_decode($_SERVER['HTTP_AX_CURENT_STYLE']));
+			$nedTemplate = $app->getTemplate(true);
+			//refresh page if requested other template
+			if ($nedTemplate->id != $oldStyle[1]) {
+				$this->sendReload();
 			}
 		}
 	}
@@ -84,14 +98,20 @@ class plgSystemAddFullajax extends JPlugin
 
 		$app = JFactory::getApplication();
 		$doc = JFactory::getDocument();
-		//$session = JFactory::getSession();
+
+		if ($app->isAdmin()) {
+			return;
+		}
+
 		$menu = $app->getMenu();
 		$menu_active = $menu->getActive();
 
 		//check whether we allowed connect fullajax script
 		$items_noax = (array) $this->params->get('menu_items_no_ax_load', array());
 		if(get_class($doc) != 'JDocumentHTML'
-			|| $app->input->get('layout') == 'edit'
+			|| ($app->input->get('option') == 'com_content' && $app->input->get('print'))
+			|| ($app->input->get('option') == 'com_mailto' && $app->input->get('view') == 'mailto')
+			|| $app->input->get('layout') == 'edit' //disable on edit, for prevernt some errors with the editor
 			|| $app->input->get('layout') == 'modal'
 			|| $app->isAdmin()
 			|| ($menu_active && in_array($menu_active->id, $items_noax))
@@ -103,7 +123,6 @@ class plgSystemAddFullajax extends JPlugin
 				return;
 			}
 			$this->nedAjaxRespons = false;
-			//$session->set('addfullajax.useAJAX', false);
 
 		} elseif($this->nedAjaxRespons)	{ //render only part of page if ajax request
 			//save default template
@@ -114,7 +133,7 @@ class plgSystemAddFullajax extends JPlugin
 				case 3:
 					break;
 				case 2:
-					$app->set('fullAjaxContId', $this->params->get('contid','forajax'));
+					$app->input->set('plg_fullajax_contid', $this->params->get('contid','forajax'));
 					$app->setTemplate('fullajax_tmpl');;
 					break;
 				case 1:
@@ -145,7 +164,7 @@ class plgSystemAddFullajax extends JPlugin
 	}
 
 	/**
-	 * connect FullAJAX scrips,
+	 * connect FullAJAX scripts,
 	 * and add wrappers for the positions that need update if position update == auto
 	 */
 	 public function onBeforeRender() {
@@ -155,8 +174,12 @@ class plgSystemAddFullajax extends JPlugin
 
 		//add own JS if allowed
 		if ($this->axJsAllowed) {
-			$doc->addScript( JURI::base().'plugins/system/addfullajax/js/fullajax.js' );
-			//$doc->addScript( JURI::base().'plugins/system/addfullajax/js/fullajax_uncompressed.js' );
+			if (!$this->params->get('uncompressed_version', 0)) {
+				$doc->addScript( JURI::root(true).'/plugins/system/addfullajax/js/fullajax.js' );
+			} else {
+				$doc->addScript( JURI::root(true).'/plugins/system/addfullajax/js/fullajax_uncompressed.js' );
+			}
+
 			$doc->addScriptDeclaration("/*--- AddFullAJAX ---*/\n" . $this->getJsData());
 
 			if($positionupd == 1){
@@ -172,9 +195,10 @@ class plgSystemAddFullajax extends JPlugin
 
 		//if  update module == automatic
 		if ($app->isSite() && $positionupd == 3) {
+
 			//get template info
-			$tags = $doc->get('_template_tags');
-			$tmpl = $doc->get('_template');
+			$tags = !$this->is_j3 ? $doc->get('_template_tags') : $this->getValue($doc, '_template_tags');
+			$tmpl = !$this->is_j3 ? $doc->get('_template') : $this->getValue($doc, '_template');
 
 			//allowed positions
 			$positions = (array) $this->params->get('allowed_positions', array() );
@@ -211,12 +235,12 @@ class plgSystemAddFullajax extends JPlugin
 						$markers[] = 'flax-'. $name;
 					}
 				}
-				$this->addModel2Blocks($markers);
+				$this->addModel2Blocks(array_unique($markers));
 				$tmpl_new = str_replace($patterns, $replacer, $tmpl);
 			}
 
 			if ($tmpl_new) {
-				$doc->set('_template', $tmpl_new);
+				!$this->is_j3 ? $doc->set('_template', $tmpl_new) : $this->setValue($doc, '_template', $tmpl_new);
 			}
 		}
 
@@ -227,12 +251,7 @@ class plgSystemAddFullajax extends JPlugin
 	 */
 	public function onAfterRender() {
 		$app = JFactory::getApplication();
-		//$session = JFactory::getSession();
 		$positionupd = $this->params->get('positionupd', 3);
-
-		//fix for joomla redirect by Cyprian Śniegota <c.sniegota@hasnet.pl>
-		//clear marker
-		//$session->set('addfullajax.useAJAX', false);
 
 		if ($this->nedAjaxRespons
 				&& $positionupd != 2
@@ -305,17 +324,13 @@ FLAX.Filter.add({query:['task=weblink','task=profile','task=user.login','task=us
 FLAX.Filter.on('beforewrap', function(o) {
  var id = o.el.getAttribute('id');
  var regExt = /.+\.(jpg|jpeg|gif|png|mp3|mp4|ogg|ogv|webm|pdf|txt|odf|ods)$/i;
- if(id == ('login-form') || id == ('form-login') || regExt.test(o.el.href)){return false;}
+ if(id == ('login-form') || id == ('form-login') || (o.el.href && (regExt.test(o.el.href) || o.el.href.indexOf('#') != -1))){return false;} });
 });
 FLAX.directLink();
 FLAX.Default.sprt_url = '!';
 FLAX.linkEqual['!ax!'+fullAjaxId+'!'] = 'ajx';
 FLAX.linkEqual['[~q~]'] = '?';
-FLAX.Html.onall('load', function(o){
-/* fix for mootools 'domready', uncomment if need*/
-/*window.fireEvent('domready'); */
-});
-		");
+");
 		//the filters for ignore menu item
 		$menu_items_ignor = $this->params->get('menu_items_ignor', array());
 		$items_noax = $this->params->get('menu_items_no_ax_load', array());
@@ -340,8 +355,8 @@ FLAX.Html.onall( \'beforerequest\', function(o){
 		$cnfg_data .= "\nFLAX.Html.onall('response', function(o){
  if(o.xhr.getResponseHeader){
   var axL = o.xhr.getResponseHeader('Ax-Location'), axAc = o.xhr.getResponseHeader('Ax-Action');
-  if(o.url != axL) o.options.url = o.url = axL;
-  if(axAc == 'reload') location = axL;
+  if(axL && o.url != axL) o.options.url = o.url = axL;
+  if(axL && axAc == 'reload') location = axL;
  }
 });";
 		//disable userside caching
@@ -419,7 +434,7 @@ var fullAjaxGif = new Element('img',{
  'id':'fullAjaxGif',
  'src':fullAjaxBase + '/plugins/system/addfullajax/js/ajax-loader.gif',
  'alt':'Loading...',
- 'style': 'position:absolute;margin-left:50%;z-index:800;'
+ 'style': 'position:absolute;left:50%;z-index:800;'
 });
 FLAX.Effect.add({id:fullAjaxId, start: function(id, request){
  var h = document.id(fullAjaxId).clientHeight;
@@ -467,6 +482,8 @@ end: function(id){
 
 	/**
 	 * Generate menu item for no wrap
+	 * @param array $itemids - id`s of ignored menu items
+	 *
 	 * @return array
 	 */
 	protected function getIgnMenuIt( array $itemids){
@@ -548,6 +565,7 @@ end: function(id){
 
 	/**
 	 * Parse a document template and find modules position
+	 * @param   array   $posParams - contains info about position that need render
 	 *
 	 * @return	The parsed contents of the template
 	 */
@@ -580,14 +598,46 @@ end: function(id){
 	 *  send command to client for refresh page
 	 */
 	protected function sendReload(){
-		//$url = JFactory::getURI()->toString(); // get link
-		//JFactory::getSession()->set('addfullajax.useAJAX', false);
+		$url = JFactory::getURI()->toString(); // get link
 		JResponse::setHeader('Ax-Action', 'reload'); // send command to reload
 		//JResponse::setHeader('Ax-Location', $url); // send link destination for reload -- already in header @see onAfterRoute()
 		JResponse::sendHeaders();
 		//echo JText::_('Wait a moment! Reloading ...');
 		echo '<div><p>Wait a moment! Reloading ...</p><p>Or click <a ax:wrap="0" href="'.$url.'">here</a>...</p></div>';
 		JFactory::getApplication()->close();
+	}
+
+	/**
+	 * getValue() and setValue() need for j3.0 cause get() set() is removed there
+	 */
+
+	/**
+	 * Method that gets a protected or private property in a class by relfection
+	 * @param   object  $object
+	 * @param   string  $propertyName
+	 *
+	 * @return  mixed  The value of the property.
+	 */
+	protected function getValue($object, $propertyName){
+		$refl = new ReflectionClass($object);
+		$property = $refl->getProperty($propertyName);
+		$property->setAccessible(true);
+		return $property->getValue($object);
+	}
+
+	/**
+	 * Method that sets a protected or private property in a class by relfection
+	 * @param   object  $object
+	 * @param   string  $propertyName
+	 * @param   mixed   $value
+	 *
+	 * @return  void
+	 */
+	protected function setValue($object, $propertyName, $value){
+		$refl = new ReflectionClass($object);
+		$property = $refl->getProperty($propertyName);
+		$property->setAccessible(true);
+		$property->setValue($object, $value);
 	}
 
 }

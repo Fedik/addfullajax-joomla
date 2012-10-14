@@ -1,7 +1,7 @@
 <?php
 /**
- * @version		2012.06.03 (0.8)
- * @package Add FullAjax for Joomla 2.5
+ * @version		2012.xx.xx (0.9)
+ * @package Add FullAjax for Joomla!
  * @author  Fedik
  * @email	getthesite@gmail.com
  * @link    http://www.getsite.org.ua
