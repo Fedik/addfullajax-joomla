@@ -137,7 +137,7 @@
 FLAX.Filter.add({query:['task=weblink','task=profile','task=user.login','task=user.logout','task=article.edit'],  type:'nowrap'});&#13;&#10;
 FLAX.Filter.on('beforewrap', function(o) {&#13;&#10;
  var id = o.el.getAttribute('id'), regExt = /.+\.(jpg|jpeg|gif|png|mp3|mp4|ogg|ogv|webm|pdf|txt|odf|ods)$/i;&#13;&#10;
- if(id == ('login-form') || id == ('form-login') || (o.el.href &#38;&#38; (regExt.test(o.el.href) || o.el.href.indexOf('#') != -1))){return false;} });&#13;&#10;
+ if(id == ('login-form') || id == ('form-login') || (o.el.href &#38;&#38; (regExt.test(o.el.href) || o.el.href.indexOf('#') != -1))){return false;}&#13;&#10;
 });&#13;&#10;
 FLAX.directLink();FLAX.Default.sprt_url = '!';&#13;&#10;
 FLAX.linkEqual['!ax!'+fullAjaxId+'!'] = 'ajx';FLAX.linkEqual['[~q~]'] = '?';&#13;&#10;

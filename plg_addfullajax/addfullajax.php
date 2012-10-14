@@ -221,8 +221,14 @@ class plgSystemAddFullajax extends JPlugin
 					}
 				}
 				$tmp .= '</body>';
+
 				//clean <body> and insert only position that we need update
-				$tmpl_new = preg_replace('#<body.*>(.|\n)*</body>#i', $tmp, $tmpl);
+				//in some cases regexp here can be cause for PHP Segmentation fault (11)
+				//$tmpl_new = preg_replace('#<body.*>(.|\n)*</body>#i', $tmp, $tmpl);
+				$body_start = stripos($tmpl, '<body');
+				$body_end = stripos($tmpl, '</body>') + 7;
+
+				$tmpl_new = substr_replace($tmpl, $tmp, $body_start, $body_end - $body_start);
 			}
 			elseif($this->axJsAllowed) {
 				//add wrappers for a position update using FullAJAX Model2Blocks
@@ -324,7 +330,7 @@ FLAX.Filter.add({query:['task=weblink','task=profile','task=user.login','task=us
 FLAX.Filter.on('beforewrap', function(o) {
  var id = o.el.getAttribute('id');
  var regExt = /.+\.(jpg|jpeg|gif|png|mp3|mp4|ogg|ogv|webm|pdf|txt|odf|ods)$/i;
- if(id == ('login-form') || id == ('form-login') || (o.el.href && (regExt.test(o.el.href) || o.el.href.indexOf('#') != -1))){return false;} });
+ if(id == ('login-form') || id == ('form-login') || (o.el.href && (regExt.test(o.el.href) || o.el.href.indexOf('#') != -1))){return false;}
 });
 FLAX.directLink();
 FLAX.Default.sprt_url = '!';
