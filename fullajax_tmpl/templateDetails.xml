@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE install PUBLIC "-//Joomla! 1.6//DTD template 1.0//EN" "http://www.joomla.org/xml/dtd/1.6/template-install.dtd">
-<extension version="1.7" type="template" client="site" method="upgrade">
+<!DOCTYPE install PUBLIC "-//Joomla! 2.5//DTD template 1.0//EN" "http://www.joomla.org/xml/dtd/1.6/template-install.dtd">
+<extension version="2.5" type="template" client="site" method="upgrade">
 	<name>fullajax_tmpl</name>
 	<creationDate>August 2011</creationDate>
 	<author>Fedik</author>
 	<authorEmail>getthesite@gmail.com</authorEmail>
-  <authorUrl>www.getsite.org.ua</authorUrl>
+	<authorUrl>www.getsite.org.ua</authorUrl>
 	<license>GNU/GPLv3</license>
-	<version>2011.08.06</version>
-	<description>This template for "Add FullAjax" plugin. Do not use it for site decoration.</description>
+	<version>2012.10.03</version>
+	<description>This template for "Add FullAjax" plugin. Do not use it for	site decoration.</description>
 
 	<files>
-	  <folder>css</folder>
-	  <folder>img</folder>
-	  <filename>index.html</filename>
+		<folder>css</folder>
+		<folder>img</folder>
+		<filename>index.html</filename>
 		<filename>index.php</filename>
 		<filename>templateDetails.xml</filename>
 		<filename>template_preview.png</filename>
