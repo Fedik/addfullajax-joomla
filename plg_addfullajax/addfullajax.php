@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		2012.xx.xx (0.9) use Fullajax lib v1.2.7
+ * @version		2012.10.14 (0.9) use Fullajax lib v1.2.7
  * @package Add FullAjax for Joomla!
  * @author  Fedik
  * @email	getthesite@gmail.com
@@ -387,21 +387,6 @@ FLAX.Html.onall( \'beforerequest\', function(o){
 		if($this->params->get('checkmenuit', 1)){
 			$cnfg_data .= "\n/*--- Change active menu item ---*/";
 
-// 			$menuClass = $this->params->get('menuClass', '.menu');
-// 			if (!stristr($menuClass,',')){
-// 				$menuClass = $menuClass.' li';
-// 			} else{
-// 				$menuClass = $this->clear_array_empty(explode(',',$menuClass));
-// 				$menuClass = implode(' li,',$menuClass).' li';
-// 			}
-			//not perfect but works
-// 			$cnfg_data .= "
-// FLAX.Html.onall('load', function(o){
-//  $$('".$menuClass."').each(function(item){
-//   if(item.hasClass('current')){item.removeClass('current');};if(item.hasClass('active')){item.removeClass('active');};
-//   if(item.getChildren().get('href') == o.url){item.addClass('current active');};
-//  });
-// });";
 			//check active by item id: class="item-ID"
 			$menuClass = trim($this->params->get('menuClass', '*'));
 			$searchOldActiv = array();
@@ -606,9 +591,7 @@ end: function(id){
 	protected function sendReload(){
 		$url = JFactory::getURI()->toString(); // get link
 		JResponse::setHeader('Ax-Action', 'reload'); // send command to reload
-		//JResponse::setHeader('Ax-Location', $url); // send link destination for reload -- already in header @see onAfterRoute()
 		JResponse::sendHeaders();
-		//echo JText::_('Wait a moment! Reloading ...');
 		echo '<div><p>Wait a moment! Reloading ...</p><p>Or click <a ax:wrap="0" href="'.$url.'">here</a>...</p></div>';
 		JFactory::getApplication()->close();
 	}

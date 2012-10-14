@@ -6,7 +6,7 @@
 	<license>GNU/GPLv3</license>
 	<authorEmail>getthesite@gmail.com</authorEmail>
 	<authorUrl>www.getsite.org.ua</authorUrl>
-	<version>2012.xx.xx</version>
+	<version>2012.10.14</version>
 	<description><![CDATA[PLG_ADDFULLAJAX_XML_DESCRIPTION]]></description>
 
 	<files folder="addfullajax">

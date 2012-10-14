@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		2012.xx.xx (0.9)
+ * @version		2012.10.14 (0.9)
  * @package Add FullAjax for Joomla!
  * @author  Fedik
  * @email	getthesite@gmail.com
