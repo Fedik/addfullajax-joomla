@@ -1,0 +1,13 @@
+# ignore patch
+*.patch
+*.diff
+
+# OS generated files #
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+
+#ignore lib
+fullajax.js
+fullajax_uncompressed.js
