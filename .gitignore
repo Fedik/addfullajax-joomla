@@ -10,4 +10,5 @@ Thumbs.db
 
 #ignore lib
 fullajax.js
+fullajax.min.js
 fullajax_uncompressed.js

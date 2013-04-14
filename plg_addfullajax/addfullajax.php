@@ -175,9 +175,9 @@ class plgSystemAddFullajax extends JPlugin
 		//add own JS if allowed
 		if ($this->axJsAllowed) {
 			if (!$this->params->get('uncompressed_version', 0)) {
-				$doc->addScript( JURI::root(true).'/plugins/system/addfullajax/js/fullajax.js' );
+				$doc->addScript( JURI::root(true).'/plugins/system/addfullajax/js/fullajax.min.js' );
 			} else {
-				$doc->addScript( JURI::root(true).'/plugins/system/addfullajax/js/fullajax_uncompressed.js' );
+				$doc->addScript( JURI::root(true).'/plugins/system/addfullajax/js/fullajax.js' );
 			}
 
 			$doc->addScriptDeclaration("/*--- AddFullAJAX ---*/\n" . $this->getJsData());
