@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		2012.10.14 (0.9) use Fullajax lib v1.2.7
+ * @version		2013.11.16 (1.0) use Fullajax lib v1.3.2
  * @package Add FullAjax for Joomla!
  * @author  Fedik
  * @email	getthesite@gmail.com
@@ -33,6 +33,7 @@ class plgSystemAddFullajax extends JPlugin
 	/**
 	 * whether is Joomla 3 or newest
 	 * @var bool
+	 * @deprecated
 	 */
 	protected $is_j3    = false;
 
@@ -109,6 +110,7 @@ class plgSystemAddFullajax extends JPlugin
 		//check whether we allowed connect fullajax script
 		$items_noax = (array) $this->params->get('menu_items_no_ax_load', array());
 		if(get_class($doc) != 'JDocumentHTML'
+			|| ($app->input->get('option') == 'com_search' && $app->input->get('type') == 'json')
 			|| ($app->input->get('option') == 'com_content' && $app->input->get('print'))
 			|| ($app->input->get('option') == 'com_mailto' && $app->input->get('view') == 'mailto')
 			|| $app->input->get('layout') == 'edit' //disable on edit, for prevernt some errors with the editor
@@ -197,8 +199,9 @@ class plgSystemAddFullajax extends JPlugin
 		if ($app->isSite() && $positionupd == 3) {
 
 			//get template info
-			$tags = !$this->is_j3 ? $doc->get('_template_tags') : $this->getValue($doc, '_template_tags');
-			$tmpl = !$this->is_j3 ? $doc->get('_template') : $this->getValue($doc, '_template');
+			$has_get = method_exists($doc, 'get');
+			$tags = $has_get ? $doc->get('_template_tags') : $this->getValue($doc, '_template_tags');
+			$tmpl = $has_get ? $doc->get('_template') : $this->getValue($doc, '_template');
 
 			//allowed positions
 			$positions = (array) $this->params->get('allowed_positions', array() );
@@ -246,7 +249,7 @@ class plgSystemAddFullajax extends JPlugin
 			}
 
 			if ($tmpl_new) {
-				!$this->is_j3 ? $doc->set('_template', $tmpl_new) : $this->setValue($doc, '_template', $tmpl_new);
+				method_exists($doc, 'set') ? $doc->set('_template', $tmpl_new) : $this->setValue($doc, '_template', $tmpl_new);
 			}
 		}
 
