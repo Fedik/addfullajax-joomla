@@ -31,28 +31,6 @@ class plgSystemAddFullajax extends JPlugin
 	protected $defTemplate    = 'system';
 
 	/**
-	 * whether is Joomla 3 or newest
-	 * @var bool
-	 * @deprecated
-	 */
-	protected $is_j3    = false;
-
-	/**
-	 * Constructor
-	 *
-	 * @param   object  &$subject  The object to observe
-	 * @param   array   $config    An optional associative array of configuration settings.
-	 *                             Recognized key values include 'name', 'group', 'params', 'language'
-	 *                             (this list is not meant to be comprehensive).
-	 */
-	public function __construct(&$subject, $config = array())	{
-		parent::__construct($subject, $config);
-
-		//test if Joomla 3.0
-		$this->is_j3 = version_compare(JVERSION, '3', 'ge');
-	}
-
-	/**
 	 * check whether we need ajax response
 	 */
 	public function onAfterRoute() {
@@ -299,19 +277,10 @@ class plgSystemAddFullajax extends JPlugin
 			// add markers where shows content
 			$body = preg_replace('/<body.*>/i', '<body>  <!-- :ax:'.$this->params->get('contid','forajax').':begin: //-->', $body);
 			$body = str_ireplace('</body>','<!-- :ax:'.$this->params->get('contid','forajax').':end: //--> '.$pos.'</body>', $body);
-/*
-			if($this->params->get('cleanOutput', 0)){
-				$body = trim(preg_replace('/((?<!\?>)\n)[\s]+/m', '\1', $body));
-			}
-*/
+
 			JResponse::setBody($body);
  		}
- 		//looks like not very useful
-/* 		elseif ($this->nedAjaxRespons && $this->params->get('cleanOutput', 0)) {
- 			$body = trim(preg_replace('/((?<!\?>)\n)[\s]+/m', '\1', JResponse::getBody()));
-			JResponse::setBody($body);
- 		}
-*/
+
  		return true;
 
 	}

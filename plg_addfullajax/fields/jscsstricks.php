@@ -40,12 +40,16 @@ class JFormFieldJsCssTricks extends JFormField
 		$doc = JFactory::getDocument();
 		$app = JFactory::getApplication();
 
-		if (version_compare(JVERSION, '3.0', 'ge')) {
-			$app->setUserState('editor.source.syntax', 'js');
-		} else {
-			//codemirror.php have a bug on line 154 so we use 'css' instead of 'js' ... hehehe
-			//http://joomlacode.org/gf/project/joomla/tracker/?action=TrackerItemEdit&tracker_item_id=26623
-			$app->setUserState('editor.source.syntax', 'css');
+		//$app->setUserState('editor.source.syntax', 'js');
+
+		if (version_compare(JVERSION, '3.2', 'ge')) {
+			//fix for labels float
+			$doc->addStyleDeclaration('#attrib-advanced .control-label{clear:both;float:none;}
+#attrib-advanced .controls{margin-left: 0;}');
+		}
+
+
+		if (!version_compare(JVERSION, '3.0', 'ge')) {
 			//fix for labels float
 			$doc->addStyleDeclaration('#jform_params_cnfg_data-lbl,#jform_params_anim_data-lbl{clear:both;float:none;}');
 		}
