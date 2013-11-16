@@ -244,7 +244,7 @@ class plgSystemAddFullajax extends JPlugin
 						$markers[] = 'flax-'. $name;
 					}
 				}
-				$this->addModel2Blocks(array_unique($markers));
+				$this->addModel2Blocks($markers);
 				$tmpl_new = str_replace($patterns, $replacer, $tmpl);
 			}
 
