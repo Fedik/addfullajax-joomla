@@ -124,12 +124,16 @@
           size="46"
         />
 
-        <field name="menu_items_ignor" type="menuitem" default=""  multiple="multiple" size="10" state="0"
+        <field name="menu_items_ignor" type="menuitem" default=""
+          multiple="multiple" size="12" state="0"
+          class="chzn-done"
           description="PLG_ADDFULLAJAX_FIELD_MENU_ITEMS_IGNOR_DESCR"
           label="PLG_ADDFULLAJAX_FIELD_MENU_ITEMS_IGNOR_LABEL"
         />
 
-        <field name="menu_items_no_ax_load" type="menuitem" default="" multiple="multiple" size="10" state="0"
+        <field name="menu_items_no_ax_load" type="menuitem" default=""
+            multiple="multiple" size="12" state="0"
+            class="chzn-done"
         	label="PLG_ADDFULLAJAX_FIELD_MENU_ITEMS_NO_AX_LOAD_LABEL"
         	description="PLG_ADDFULLAJAX_FIELD_MENU_ITEMS_NO_AX_LOAD_DESCR"
         />

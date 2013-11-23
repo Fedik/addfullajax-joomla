@@ -57,11 +57,14 @@
 
  function axToggleCheckActiv(checked){
 	 //hide all
-	 var $checkmenuitA = $("#jform_params_checkmenuit_active_for_a").parents("div.control-group").slideUp();
-	 var $menuClass = $("#jform_params_menuClass").parents("div.control-group").slideUp();
+	 var $checkmenuitA = $("#jform_params_checkmenuit_active_for_a").parents("div.control-group");
+	 var $menuClass = $("#jform_params_menuClass").parents("div.control-group");
 	 if (checked == "1") {
 	  $checkmenuitA.slideDown();
 	  $menuClass.slideDown();
+	 } else {
+	  $checkmenuitA.slideUp();
+      $menuClass.slideUp();
 	 }
  }
 
