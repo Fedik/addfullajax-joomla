@@ -376,6 +376,7 @@ FLAX.Html.onall( \'beforerequest\', function(o){
 		//scroll up after each request
 		if($this->params->get('scrlUp', 1) == 1){
 			//for nice scroll ;)
+			//@TODO: replace to jQuery
 			JHTML::_('behavior.framework', true);
 			$cnfg_data .= "\nFLAX.Html.onall('response', function(){new Fx.Scroll(window).toTop();});";
 		}
@@ -416,6 +417,7 @@ FLAX.Html.onall('load', function(){
 		}
 
 		if($this->params->get('on_anim', 1)){
+			//@TODO: replace to jQuery
 			$cnfg_data .= "\n/*--- FX ---*/\n". $this->params->get('anim_data',"
 var fullAjaxGif = new Element('img',{
  'id':'fullAjaxGif',
