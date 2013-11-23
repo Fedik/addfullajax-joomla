@@ -1,5 +1,5 @@
 /**
- * @version	2013.11.16 (1.0)
+ * @version	2013.11.23 (1.0)
  * @package Add FullAjax for Joomla!
  * @author  Fedik
  * @email	getthesite@gmail.com

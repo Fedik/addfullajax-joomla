@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		2013.11.16 (1.0) use Fullajax lib v1.3.2
+ * @version		2013.11.23 (1.0) use Fullajax lib v1.3.2
  * @package Add FullAjax for Joomla!
  * @author  Fedik
  * @email	getthesite@gmail.com
@@ -113,12 +113,24 @@ class plgSystemAddFullajax extends JPlugin
 				case 3:
 					break;
 				case 2:
-					$app->input->set('plg_fullajax_contid', $this->params->get('contid','forajax'));
-					$app->setTemplate('fullajax_tmpl');;
+					$app->input->set('plg_fullajax_contid', $this->params->get('contid','content'));
+					$app->setTemplate('fullajax_tmpl');
+					// joomla 3.2 fix
+					if (version_compare(JVERSION, '3.2', 'ge')) {
+						$template = $app->getTemplate(true);
+						$app->set('theme', $template->template);
+						$app->set('themeParams', $template->params);
+					}
 					break;
 				case 1:
 				default:
 					$app->setTemplate('system');
+					// joomla 3.2 fix
+					if (version_compare(JVERSION, '3.2', 'ge')) {
+						$template = $app->getTemplate(true);
+						$app->set('theme', $template->template);
+						$app->set('themeParams', $template->params);
+					}
 					break;
 			}
 
@@ -167,7 +179,7 @@ class plgSystemAddFullajax extends JPlugin
 				$markers = $this->parsePositionParams();
 				if (!empty($markers)) {
 					$markers = array_unique(array_values($markers));
-					$markers[] = $this->params->get('contid', 'forajax');
+					$markers[] = $this->params->get('contid', 'content');
 					$this->addModel2Blocks($markers);
 				}
 			}
@@ -252,6 +264,12 @@ class plgSystemAddFullajax extends JPlugin
 				// Render modules
 				$posInTemplate = $this->parseTemplate($posParams);
 				$app->setTemplate($this->defTemplate);
+				// joomla 3.2 fix
+				if (version_compare(JVERSION, '3.2', 'ge')) {
+					$template = $app->getTemplate(true);
+					$app->set('theme', $template->template);
+					$app->set('themeParams', $template->params);
+				}
 				$renderer = $doc->loadRenderer('modules');
 				$blocks = array_unique(array_values($posParams));
 				$positions = array();
@@ -275,8 +293,8 @@ class plgSystemAddFullajax extends JPlugin
 			// remove system css
 			$body = preg_replace("/<link.*href=([\"']([^\"]+(general|template|template_rtl)\.css.*?)[\"']).*\/>/i", '', $body);
 			// add markers where shows content
-			$body = preg_replace('/<body.*>/i', '<body>  <!-- :ax:'.$this->params->get('contid','forajax').':begin: //-->', $body);
-			$body = str_ireplace('</body>','<!-- :ax:'.$this->params->get('contid','forajax').':end: //--> '.$pos.'</body>', $body);
+			$body = preg_replace('/<body.*>/i', '<body>  <!-- :ax:'.$this->params->get('contid','content').':begin: //-->', $body);
+			$body = str_ireplace('</body>','<!-- :ax:'.$this->params->get('contid','content').':end: //--> '.$pos.'</body>', $body);
 
 			JResponse::setBody($body);
  		}
@@ -293,7 +311,7 @@ class plgSystemAddFullajax extends JPlugin
 	protected function getJsData() {
 		$app = JFactory::getApplication();
 		$templ = $app->getTemplate(true);
-		$content_id = ($this->params->get('positionupd', 3) != 3) ? $this->params->get('contid','forajax') : 'flax-component';
+		$content_id = ($this->params->get('positionupd', 3) != 3) ? $this->params->get('contid','content') : 'flax-component';
 		$cnfg_data  = "var fullAjaxId = '" . $content_id . "';\n";
 		$cnfg_data .= "var fullAjaxBase = '".rtrim(JURI::base(),'/')."';\n";
 		$cnfg_data .=  $this->params->get('cnfg_data',"

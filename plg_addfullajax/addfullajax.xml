@@ -6,7 +6,7 @@
 	<license>GNU/GPLv3</license>
 	<authorEmail>getthesite@gmail.com</authorEmail>
 	<authorUrl>www.getsite.org.ua</authorUrl>
-	<version>2013.11.16</version>
+	<version>2013.11.23</version>
 	<description><![CDATA[PLG_ADDFULLAJAX_XML_DESCRIPTION]]></description>
 
 	<files folder="addfullajax">
@@ -34,7 +34,7 @@
 
         <field name="spacer1" type="spacer"	hr="true" />
 
-        <field name="contid" type="text" default="forajax"
+        <field name="contid" type="text" default="content"
           description="PLG_ADDFULLAJAX_FIELD_CONTID_DESCR"
           label="PLG_ADDFULLAJAX_FIELD_CONTID_LABEL"
           size="23"
