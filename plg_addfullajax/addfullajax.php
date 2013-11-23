@@ -135,17 +135,17 @@ class plgSystemAddFullajax extends JPlugin
 			}
 
 			//add active menu items, for check active by id: class="item-ID"
-			if($this->params->get('checkmenuit', 1)) {
-				$menu_active_tree = $menu_active ? array_reverse($menu_active->tree) : array();
-				//check if alias exist
-				foreach ($menu->getItems('type', 'alias') as $item){
-					if ($item->params->get('aliasoptions') == $menu_active->id){
-						$menu_active_tree[] = $item->id;
-					}
+			//if($this->params->get('checkmenuit', 1)) {
+			$menu_active_tree = $menu_active ? array_reverse($menu_active->tree) : array();
+			//check if alias exist
+			foreach ($menu->getItems('type', 'alias') as $item){
+				if ($item->params->get('aliasoptions') == $menu_active->id){
+					$menu_active_tree[] = $item->id;
 				}
-				$menu_active_tree = json_encode($menu_active_tree);
-				$doc->addScriptDeclaration('var fullAjaxMItems = ' . $menu_active_tree . ';');
 			}
+			$menu_active_tree = json_encode($menu_active_tree);
+			$doc->addScriptDeclaration('var fullAjaxMItems = ' . $menu_active_tree . ';');
+			//}
 
 
 		} else {
@@ -553,7 +553,7 @@ end: function(id){
 	protected function parseTemplate($posParams){
 		$matches = array();
 		$posInTemplate = array();
-		$tmplFile = file_get_contents(JPATH_THEMES.DS.$this->defTemplate.DS.'index.php');
+		$tmplFile = file_get_contents(JPATH_THEMES.'/'.$this->defTemplate.'/index.php');
 #		if (preg_match_all('#<jdoc:include\ type="([^"]+)" (.*)\/>#iU', $tmplFile, $matches))
 		if (preg_match_all('#<jdoc:include\ type="(module|modules)" (.*)\/>#iU', $tmplFile, $matches)) {
 			$count = count($matches[1]);
