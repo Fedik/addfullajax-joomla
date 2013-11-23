@@ -193,6 +193,12 @@ class plgSystemAddFullajax extends JPlugin
 			$tags = $has_get ? $doc->get('_template_tags') : $this->getValue($doc, '_template_tags');
 			$tmpl = $has_get ? $doc->get('_template') : $this->getValue($doc, '_template');
 
+			// Show warning if empty
+			if(empty($tags) || empty($tmpl)) {
+				$app->enqueueMessage('AddFullAJAX error: Automatic positions update does not supports for a current template!', 'error');
+				return;
+			}
+
 			//allowed positions
 			$positions = (array) $this->params->get('allowed_positions', array() );
 			$positions[] = ''; //'' - empty for 'message' and 'component'
