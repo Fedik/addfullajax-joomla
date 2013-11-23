@@ -14,23 +14,8 @@ window.addEvent("domready", function() {
   axChangeDependsMethod(this.get("value"));
  });
 
- //clear selected menu items
- var ignorInput = document.id("jform_params_menu_items_ignor");
- var axNoInput = document.id("jform_params_menu_items_no_ax_load");
- if(ignorInput && axNoInput){
-   var btClear = new Element("button",{
-    html: "Clear",
-    type: "button",
-    events: { click : axDeselectSelectedItems }
-   });
-  ignorInput.getParent("li").adopt(btClear);
-  axNoInput.getParent("li").adopt(btClear.clone().cloneEvents(btClear));
- }
 });
-function axDeselectSelectedItems(e){
- var sel = e.target.getSiblings("select")[0];
- sel.getElements("option[selected=\"selected\"]").removeProperty("selected");
-}
+
 function axChangeDependsMethod(id){
  //hide all
  var contid = document.id("jform_params_contid").getParent("li").slide("out");
