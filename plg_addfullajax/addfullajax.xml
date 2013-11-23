@@ -23,7 +23,9 @@
 
       	<field name="trick" type="jscsstricks" />
 
-		<field name="positionupd" type="list" default="3" label="PLG_ADDFULLAJAX_FIELD_POSITIONUPD_LABEL">
+		<field name="positionupd" type="list" default="3"
+			label="PLG_ADDFULLAJAX_FIELD_POSITIONUPD_LABEL"
+			description="PLG_ADDFULLAJAX_FIELD_POSITIONUPD_DESCR">
           <option value="0">JNo</option>
           <option value="1">PLG_ADDFULLAJAX_FIELD_POSITIONUPD_SEMI</option>
           <option value="2">PLG_ADDFULLAJAX_FIELD_POSITIONUPD_MANUALLY</option>
@@ -75,7 +77,8 @@
         </field>
         <field name="scrlUp" type="radio" default="1"
         	class="btn-group btn-group-yesno"
-        	label="PLG_ADDFULLAJAX_FIELD_SCRLUP_LABEL" >
+        	label="PLG_ADDFULLAJAX_FIELD_SCRLUP_LABEL"
+        	description="PLG_ADDFULLAJAX_FIELD_SCRLUP_DESCR" >
           <option value="1">JYes</option>
           <option value="0">JNo</option>
         </field>
@@ -88,17 +91,17 @@
           <option value="0">JNo</option>
         </field>
 
+        <field name="on_anim" type="radio" default="1"
+        	class="btn-group btn-group-yesno"
+        	label="PLG_ADDFULLAJAX_FIELD_ON_ANIM_LABEL"
+        	description="PLG_ADDFULLAJAX_FIELD_ON_ANIM_DESCR">
+          <option value="1">JYes</option>
+          <option value="0">JNo</option>
+        </field>
+
       </fieldset>
       <fieldset name="menuconf">
-      	<field name="menu_items_ignor" type="menuitem" default=""  multiple="multiple" size="10" state="0"
-          description="PLG_ADDFULLAJAX_FIELD_MENU_ITEMS_IGNOR_DESCR"
-          label="PLG_ADDFULLAJAX_FIELD_MENU_ITEMS_IGNOR_LABEL"
-        />
 
-        <field name="menu_items_no_ax_load" type="menuitem" default="" multiple="multiple" size="10" state="0"
-        	label="PLG_ADDFULLAJAX_FIELD_MENU_ITEMS_NO_AX_LOAD_LABEL"
-        	description="PLG_ADDFULLAJAX_FIELD_MENU_ITEMS_NO_AX_LOAD_DESCR"
-        />
 
         <field name="checkmenuit" type="radio" default="1"
         	class="btn-group btn-group-yesno"
@@ -121,12 +124,15 @@
           size="46"
         />
 
-        <field name="on_anim" type="radio" default="1"
-        	class="btn-group btn-group-yesno"
-        	label="PLG_ADDFULLAJAX_FIELD_ON_ANIM_LABEL" >
-          <option value="1">JYes</option>
-          <option value="0">JNo</option>
-        </field>
+        <field name="menu_items_ignor" type="menuitem" default=""  multiple="multiple" size="10" state="0"
+          description="PLG_ADDFULLAJAX_FIELD_MENU_ITEMS_IGNOR_DESCR"
+          label="PLG_ADDFULLAJAX_FIELD_MENU_ITEMS_IGNOR_LABEL"
+        />
+
+        <field name="menu_items_no_ax_load" type="menuitem" default="" multiple="multiple" size="10" state="0"
+        	label="PLG_ADDFULLAJAX_FIELD_MENU_ITEMS_NO_AX_LOAD_LABEL"
+        	description="PLG_ADDFULLAJAX_FIELD_MENU_ITEMS_NO_AX_LOAD_DESCR"
+        />
 
       </fieldset>
 

@@ -40,7 +40,8 @@ class JFormFieldJsCssTricks extends JFormField
 		$doc = JFactory::getDocument();
 		$app = JFactory::getApplication();
 
-		//$app->setUserState('editor.source.syntax', 'js');
+		// for j2.5
+		$app->setUserState('editor.source.syntax', 'js');
 
 		if (version_compare(JVERSION, '3.2', 'ge')) {
 			//fix for labels float
