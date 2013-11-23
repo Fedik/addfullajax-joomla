@@ -26,27 +26,10 @@ window.addEvent("domready", function() {
   ignorInput.getParent("li").adopt(btClear);
   axNoInput.getParent("li").adopt(btClear.clone().cloneEvents(btClear));
  }
-
- //toggle the check active item configuration
- var checkmenuit = document.id("jform_params_checkmenuit");
- axToggleCheckActiv(checkmenuit.getElement("input:checked").get("value"));
- checkmenuit.addEvent("click", function(){
-  axToggleCheckActiv(this.getElement("input:checked").get("value"));
- });
-
 });
 function axDeselectSelectedItems(e){
  var sel = e.target.getSiblings("select")[0];
  sel.getElements("option[selected=\"selected\"]").removeProperty("selected");
-}
-function axToggleCheckActiv(checked){
- //hide all
- var checkmenuitA = document.id("jform_params_checkmenuit_active_for_a").getParent("li").slide("out");
- var menuClass = document.id("jform_params_menuClass").getParent("li").slide("out");
- if (checked == "1") {
-  checkmenuitA.slide("in");
-  menuClass.slide("in");
- }
 }
 function axChangeDependsMethod(id){
  //hide all
