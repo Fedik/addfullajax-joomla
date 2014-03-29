@@ -328,10 +328,10 @@ FLAX.Filter.on('beforewrap', function(o) {
  var regExt = /.+\.(jpg|jpeg|gif|png|mp3|mp4|ogg|ogv|webm|pdf|txt|odf|ods)$/i;
  if(id == ('login-form') || id == ('form-login') || (o.el.href && (regExt.test(o.el.href) || o.el.href.indexOf('#') != -1))){return false;}
 });
-FLAX.directLink();
 FLAX.Default.sprt_url = '!';
 FLAX.linkEqual['!ax!'+fullAjaxId+'!'] = 'ajx';
 FLAX.linkEqual['[~q~]'] = '?';
+FLAX.directLink();
 ");
 		//the filters for ignore menu item
 		$menu_items_ignor = $this->params->get('menu_items_ignor', array());
