@@ -35,6 +35,8 @@ local.properties
 # PDT-specific
 .buildpath
 
+build.xml
+
 #ignore lib
 fullajax.js
 fullajax.min.js
