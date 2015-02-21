@@ -11,12 +11,16 @@
 
 	<files folder="addfullajax">
 		<filename plugin="addfullajax">addfullajax.php</filename>
-		<folder>js</folder>
 		<folder>fields</folder>
 		<folder>language</folder>
 	</files>
 
-  <config>
+	<media destination="plg_system_addfullajax" folder="media">
+		<folder>js</folder>
+		<folder>images</folder>
+	</media>
+
+  	<config>
     <fields name="params" addfieldpath="/plugins/system/addfullajax/fields">
       <fieldset name="basic">
 
@@ -160,7 +164,7 @@ FLAX.linkEqual['[~q~]'] = '?';FLAX.directLink();&#13;&#10;
         	editor="codemirror|none" buttons="false" filter="raw" syntax="js"
           	default="var fullAjaxGif = new Element('img',{&#13;&#10;
  'id':'fullAjaxGif','alt':'Loading...',&#13;&#10;
- 'src':fullAjaxBase + '/plugins/system/addfullajax/js/ajax-loader.gif',&#13;&#10;
+ 'src':fullAjaxBase + '/media/plg_system_addfullajax/images/ajax-loader.gif',&#13;&#10;
  'style': 'position:absolute;left:50%;z-index:800;'&#13;&#10;
 });&#13;&#10;
 FLAX.Effect.add({id:fullAjaxId, start: function(id, request){&#13;&#10;

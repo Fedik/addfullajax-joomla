@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		2013.11.23 (1.0) use Fullajax lib v1.3.2
+ * @version	2013.11.23 (1.0) use Fullajax lib v1.3.2
  * @package Add FullAjax for Joomla!
  * @author  Fedik
  * @email	getthesite@gmail.com
@@ -9,7 +9,6 @@
  */
 defined( '_JEXEC' ) or die( 'Get lost?' );
 
-jimport( 'joomla.plugin.plugin' );
 class plgSystemAddFullajax extends JPlugin
 {
 	/**
@@ -167,9 +166,9 @@ class plgSystemAddFullajax extends JPlugin
 		//add own JS if allowed
 		if ($this->axJsAllowed) {
 			if (!$this->params->get('uncompressed_version', 0)) {
-				$doc->addScript( JURI::root(true).'/plugins/system/addfullajax/js/fullajax.min.js' );
+				JHtml::_('script', 'plg_system_addfullajax/fullajax.min.js', false, true);
 			} else {
-				$doc->addScript( JURI::root(true).'/plugins/system/addfullajax/js/fullajax.js' );
+				JHtml::_('script', 'plg_system_addfullajax/fullajax.js', false, true);
 			}
 
 			$doc->addScriptDeclaration("/*--- AddFullAJAX ---*/\n" . $this->getJsData());
@@ -319,7 +318,7 @@ class plgSystemAddFullajax extends JPlugin
 		$templ = $app->getTemplate(true);
 		$content_id = ($this->params->get('positionupd', 3) != 3) ? $this->params->get('contid','content') : 'flax-component';
 		$cnfg_data  = "var fullAjaxId = '" . $content_id . "';\n";
-		$cnfg_data .= "var fullAjaxBase = '".rtrim(JURI::base(),'/')."';\n";
+		$cnfg_data .= "var fullAjaxBase = '".rtrim(JUri::base(),'/')."';\n";
 		$cnfg_data .=  $this->params->get('cnfg_data',"
 FLAX.Filter.add({url:'/', id:fullAjaxId});
 FLAX.Filter.add({query:['task=weblink','task=profile','task=user.login','task=user.logout','task=article.edit'],  type:'nowrap'});
@@ -377,7 +376,7 @@ FLAX.Html.onall( \'beforerequest\', function(o){
 		if($this->params->get('scrlUp', 1) == 1){
 			//for nice scroll ;)
 			//@TODO: replace to jQuery
-			JHTML::_('behavior.framework', true);
+			JHtml::_('behavior.framework', true);
 			$cnfg_data .= "\nFLAX.Html.onall('response', function(){new Fx.Scroll(window).toTop();});";
 		}
 		//enable autocheck active menu item
@@ -421,7 +420,7 @@ FLAX.Html.onall('load', function(){
 			$cnfg_data .= "\n/*--- FX ---*/\n". $this->params->get('anim_data',"
 var fullAjaxGif = new Element('img',{
  'id':'fullAjaxGif',
- 'src':fullAjaxBase + '/plugins/system/addfullajax/js/ajax-loader.gif',
+ 'src':fullAjaxBase + '/media/plg_system_addfullajax/images/ajax-loader.gif',
  'alt':'Loading...',
  'style': 'position:absolute;left:50%;z-index:800;'
 });
