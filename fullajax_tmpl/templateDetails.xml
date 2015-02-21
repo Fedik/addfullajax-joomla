@@ -11,9 +11,6 @@
 	<description>This template for "Add FullAjax" plugin. Do not use it for	site decoration.</description>
 
 	<files>
-		<folder>css</folder>
-		<folder>img</folder>
-		<filename>index.html</filename>
 		<filename>index.php</filename>
 		<filename>templateDetails.xml</filename>
 		<filename>template_preview.png</filename>
