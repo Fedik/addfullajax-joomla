@@ -20,211 +20,214 @@
 		<folder>images</folder>
 	</media>
 
-  	<config>
-    <fields name="params" addfieldpath="/plugins/system/addfullajax/fields">
-      <fieldset name="basic">
+	<config>
+		<fields name="params" addfieldpath="/plugins/system/addfullajax/fields">
+			<fieldset name="basic">
 
-      	<field name="trick" type="jscsstricks" />
+				<field name="trick" type="jscsstricks" />
 
-		<field name="positionupd" type="list" default="3"
-			label="PLG_ADDFULLAJAX_FIELD_POSITIONUPD_LABEL"
-			description="PLG_ADDFULLAJAX_FIELD_POSITIONUPD_DESCR">
-          <option value="0">JNo</option>
-          <option value="1">PLG_ADDFULLAJAX_FIELD_POSITIONUPD_SEMI</option>
-          <option value="2">PLG_ADDFULLAJAX_FIELD_POSITIONUPD_MANUALLY</option>
-          <option value="3">PLG_ADDFULLAJAX_FIELD_POSITIONUPD_AUTO</option>
-        </field>
+				<field name="positionupd" type="list" default="3"
+					label="PLG_ADDFULLAJAX_FIELD_POSITIONUPD_LABEL"
+					description="PLG_ADDFULLAJAX_FIELD_POSITIONUPD_DESCR">
+					<option value="0">JNo</option>
+					<option value="1">PLG_ADDFULLAJAX_FIELD_POSITIONUPD_SEMI</option>
+					<option value="2">PLG_ADDFULLAJAX_FIELD_POSITIONUPD_MANUALLY</option>
+					<option value="3">PLG_ADDFULLAJAX_FIELD_POSITIONUPD_AUTO</option>
+				</field>
 
-        <field name="spacer1" type="spacer"	hr="true" />
+				<field name="spacer1" type="spacer"	hr="true" />
 
-        <field name="contid" type="text" default="content"
-          description="PLG_ADDFULLAJAX_FIELD_CONTID_DESCR"
-          label="PLG_ADDFULLAJAX_FIELD_CONTID_LABEL"
-          size="23"
-        />
+				<field name="contid" type="text" default="content"
+					description="PLG_ADDFULLAJAX_FIELD_CONTID_DESCR"
+					label="PLG_ADDFULLAJAX_FIELD_CONTID_LABEL"
+					size="23"
+				/>
 
-        <field name="posParams" type="text" default=""
-          description="PLG_ADDFULLAJAX_FIELD_POSPARAMS_DESCR"
-          label="PLG_ADDFULLAJAX_FIELD_POSPARAMS_LABEL"
-          size="46"
-        />
+				<field name="posParams" type="text" default=""
+					description="PLG_ADDFULLAJAX_FIELD_POSPARAMS_DESCR"
+					label="PLG_ADDFULLAJAX_FIELD_POSPARAMS_LABEL"
+					size="46"
+				/>
 
-        <field name="allowed_positions" type="positions" default="" multiple="multiple" size="13"
-          description="PLG_ADDFULLAJAX_FIELD_ALLOWED_POS_DESCR"
-          label="PLG_ADDFULLAJAX_FIELD_ALLOWED_POS_LABEL"
-        />
+				<field name="allowed_positions" type="positions" default="" multiple="multiple" size="13"
+					description="PLG_ADDFULLAJAX_FIELD_ALLOWED_POS_DESCR"
+					label="PLG_ADDFULLAJAX_FIELD_ALLOWED_POS_LABEL"
+				/>
 
-        <field name="spacer2" type="spacer"	hr="true" />
+				<field name="spacer2" type="spacer"	hr="true" />
 
-        <field name="useDiffStyle" type="radio" default="1"
-        	class="btn-group btn-group-yesno"
-        	label="PLG_ADDFULLAJAX_FIELD_USEDIFFSTYLE_LABEL"
-        	description="PLG_ADDFULLAJAX_FIELD_USEDIFFSTYLE_DESCR">
-          <option value="1">JYes</option>
-          <option value="0">JNo</option>
-        </field>
+				<field name="useDiffStyle" type="radio" default="1"
+					class="btn-group btn-group-yesno"
+					label="PLG_ADDFULLAJAX_FIELD_USEDIFFSTYLE_LABEL"
+					description="PLG_ADDFULLAJAX_FIELD_USEDIFFSTYLE_DESCR">
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
 
-        <field name="userCache" type="radio" default="1"
-	        class="btn-group btn-group-yesno"
-	        label="PLG_ADDFULLAJAX_FIELD_USERCACHE_LABEL"
-	        description="PLG_ADDFULLAJAX_FIELD_USERCACHE_DESCR">
-          <option value="1">JYes</option>
-          <option value="0">JNo</option>
-        </field>
-        <field name="useHTML5" type="radio" default="1"
-	        class="btn-group btn-group-yesno"
-	        label="PLG_ADDFULLAJAX_FIELD_USEHTML5_LABEL"
-	        description="PLG_ADDFULLAJAX_FIELD_USEHTML5_DESCR">
-          <option value="1">JYes</option>
-          <option value="0">JNo</option>
-        </field>
-        <field name="scrlUp" type="radio" default="1"
-        	class="btn-group btn-group-yesno"
-        	label="PLG_ADDFULLAJAX_FIELD_SCRLUP_LABEL"
-        	description="PLG_ADDFULLAJAX_FIELD_SCRLUP_DESCR" >
-          <option value="1">JYes</option>
-          <option value="0">JNo</option>
-        </field>
+				<field name="userCache" type="radio" default="1"
+					class="btn-group btn-group-yesno"
+					label="PLG_ADDFULLAJAX_FIELD_USERCACHE_LABEL"
+					description="PLG_ADDFULLAJAX_FIELD_USERCACHE_DESCR">
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
 
-        <field name="useGA" type="radio" default="0"
-        	class="btn-group btn-group-yesno"
-	        label="PLG_ADDFULLAJAX_FIELD_USEGA_LABEL"
-	        description="PLG_ADDFULLAJAX_FIELD_USEGA_DESCR">
-          <option value="1">JYes</option>
-          <option value="0">JNo</option>
-        </field>
+				<field name="useHTML5" type="radio" default="1"
+					class="btn-group btn-group-yesno"
+					label="PLG_ADDFULLAJAX_FIELD_USEHTML5_LABEL"
+					description="PLG_ADDFULLAJAX_FIELD_USEHTML5_DESCR">
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
 
-        <field name="on_anim" type="radio" default="1"
-        	class="btn-group btn-group-yesno"
-        	label="PLG_ADDFULLAJAX_FIELD_ON_ANIM_LABEL"
-        	description="PLG_ADDFULLAJAX_FIELD_ON_ANIM_DESCR">
-          <option value="1">JYes</option>
-          <option value="0">JNo</option>
-        </field>
+				<field name="scrlUp" type="radio" default="1"
+					class="btn-group btn-group-yesno"
+					label="PLG_ADDFULLAJAX_FIELD_SCRLUP_LABEL"
+					description="PLG_ADDFULLAJAX_FIELD_SCRLUP_DESCR" >
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
 
-      </fieldset>
-      <fieldset name="menuconf">
+				<field name="useGA" type="radio" default="0"
+					class="btn-group btn-group-yesno"
+					label="PLG_ADDFULLAJAX_FIELD_USEGA_LABEL"
+					description="PLG_ADDFULLAJAX_FIELD_USEGA_DESCR">
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
+
+				<field name="on_anim" type="radio" default="1"
+					class="btn-group btn-group-yesno"
+					label="PLG_ADDFULLAJAX_FIELD_ON_ANIM_LABEL"
+					description="PLG_ADDFULLAJAX_FIELD_ON_ANIM_DESCR">
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
+
+			</fieldset>
+
+			<fieldset name="menuconf">
 
 
-        <field name="checkmenuit" type="radio" default="1"
-        	class="btn-group btn-group-yesno"
-        	label="PLG_ADDFULLAJAX_FIELD_CHECKMENUIT_LABEL"
-        	description="PLG_ADDFULLAJAX_FIELD_CHECKMENUIT_DESCR" >
-          <option value="1">JYes</option>
-          <option value="0">JNo</option>
-        </field>
+				<field name="checkmenuit" type="radio" default="1"
+					class="btn-group btn-group-yesno"
+					label="PLG_ADDFULLAJAX_FIELD_CHECKMENUIT_LABEL"
+					description="PLG_ADDFULLAJAX_FIELD_CHECKMENUIT_DESCR" >
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
 
-        <field name="checkmenuit_active_for_a" type="radio" default="0"
-        	class="btn-group btn-group-yesno"
-        	label="PLG_ADDFULLAJAX_FIELD_CHECKMENUIT_ACTIVE_FOR_A_LABEL" >
-          <option value="1">JYes</option>
-          <option value="0">JNo</option>
-        </field>
+				<field name="checkmenuit_active_for_a" type="radio" default="0"
+					class="btn-group btn-group-yesno"
+					label="PLG_ADDFULLAJAX_FIELD_CHECKMENUIT_ACTIVE_FOR_A_LABEL" >
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
 
-        <field name="menuClass" type="text" default="*"
-          description="PLG_ADDFULLAJAX_FIELD_MENUCLASS_DESCR"
-          label="PLG_ADDFULLAJAX_FIELD_MENUCLASS_LABEL"
-          size="46"
-        />
+				<field name="menuClass" type="text" default="*"
+					description="PLG_ADDFULLAJAX_FIELD_MENUCLASS_DESCR"
+					label="PLG_ADDFULLAJAX_FIELD_MENUCLASS_LABEL"
+					size="46"
+				/>
 
-        <field name="menu_items_ignor" type="menuitem" default=""
-          multiple="multiple" size="12" state="0"
-          class="chzn-done"
-          description="PLG_ADDFULLAJAX_FIELD_MENU_ITEMS_IGNOR_DESCR"
-          label="PLG_ADDFULLAJAX_FIELD_MENU_ITEMS_IGNOR_LABEL"
-        />
+				<field name="menu_items_ignor" type="menuitem" default=""
+					multiple="multiple" size="12" state="0"
+					class="chzn-done"
+					description="PLG_ADDFULLAJAX_FIELD_MENU_ITEMS_IGNOR_DESCR"
+					label="PLG_ADDFULLAJAX_FIELD_MENU_ITEMS_IGNOR_LABEL"
+				/>
 
-        <field name="menu_items_no_ax_load" type="menuitem" default=""
-            multiple="multiple" size="12" state="0"
-            class="chzn-done"
-        	label="PLG_ADDFULLAJAX_FIELD_MENU_ITEMS_NO_AX_LOAD_LABEL"
-        	description="PLG_ADDFULLAJAX_FIELD_MENU_ITEMS_NO_AX_LOAD_DESCR"
-        />
+				<field name="menu_items_no_ax_load" type="menuitem" default=""
+						multiple="multiple" size="12" state="0"
+						class="chzn-done"
+					label="PLG_ADDFULLAJAX_FIELD_MENU_ITEMS_NO_AX_LOAD_LABEL"
+					description="PLG_ADDFULLAJAX_FIELD_MENU_ITEMS_NO_AX_LOAD_DESCR"
+				/>
 
-      </fieldset>
+			</fieldset>
 
-      <fieldset name="advanced">
+			<fieldset name="advanced">
 
-        <field name="cnfg_data" type="editor" rows="23" cols="43"
-        	editor="codemirror|none" buttons="false" filter="raw" syntax="js"
-          	default="FLAX.Filter.add({url:'/', id:fullAjaxId});&#13;&#10;
+				<field name="cnfg_data" type="editor" rows="23" cols="43"
+					editor="codemirror|none" buttons="false" filter="raw" syntax="js"
+						default="FLAX.Filter.add({url:'/', id:fullAjaxId});&#13;&#10;
 FLAX.Filter.add({query:['task=weblink','task=profile','task=user.login','task=user.logout','task=article.edit'],  type:'nowrap'});&#13;&#10;
 FLAX.Filter.on('beforewrap', function(o) {&#13;&#10;
- var id = o.el.getAttribute('id'), regExt = /.+\.(jpg|jpeg|gif|png|mp3|mp4|ogg|ogv|webm|pdf|txt|odf|ods)$/i;&#13;&#10;
- if(id == ('login-form') || id == ('form-login') || (o.el.href &#38;&#38; (regExt.test(o.el.href) || o.el.href.indexOf('#') != -1))){return false;}&#13;&#10;
+var id = o.el.getAttribute('id'), regExt = /.+\.(jpg|jpeg|gif|png|mp3|mp4|ogg|ogv|webm|pdf|txt|odf|ods)$/i;&#13;&#10;
+if(id == ('login-form') || id == ('form-login') || (o.el.href &#38;&#38; (regExt.test(o.el.href) || o.el.href.indexOf('#') != -1))){return false;}&#13;&#10;
 });&#13;&#10;
 FLAX.Default.sprt_url = '!';FLAX.linkEqual['!ax!'+fullAjaxId+'!'] = 'ajx';&#13;&#10;
 FLAX.linkEqual['[~q~]'] = '?';FLAX.directLink();&#13;&#10;
 /* call the code when new content loaded, can be used for initialise the broken scripts */&#13;&#10;
 /* FLAX.Html.onall('load', function(data){alert('New content loaded!');}); */
 "
-          label="PLG_ADDFULLAJAX_FIELD_CNFG_DATA_LABEL" description="PLG_ADDFULLAJAX_FIELD_CNFG_DATA_DESCR"/>
+					label="PLG_ADDFULLAJAX_FIELD_CNFG_DATA_LABEL" description="PLG_ADDFULLAJAX_FIELD_CNFG_DATA_DESCR"/>
 
-        <field name="anim_data" type="editor" rows="26" cols="43"
-        	editor="codemirror|none" buttons="false" filter="raw" syntax="js"
-          	default="var fullAjaxGif = new Element('img',{&#13;&#10;
- 'id':'fullAjaxGif','alt':'Loading...',&#13;&#10;
- 'src':fullAjaxBase + '/media/plg_system_addfullajax/images/ajax-loader.gif',&#13;&#10;
- 'style': 'position:absolute;left:50%;z-index:800;'&#13;&#10;
+				<field name="anim_data" type="editor" rows="26" cols="43"
+					editor="codemirror|none" buttons="false" filter="raw" syntax="js"
+						default="var fullAjaxGif = new Element('img',{&#13;&#10;
+'id':'fullAjaxGif','alt':'Loading...',&#13;&#10;
+'src':fullAjaxBase + '/media/plg_system_addfullajax/images/ajax-loader.gif',&#13;&#10;
+'style': 'position:absolute;left:50%;z-index:800;'&#13;&#10;
 });&#13;&#10;
 FLAX.Effect.add({id:fullAjaxId, start: function(id, request){&#13;&#10;
- var h = document.id(fullAjaxId).clientHeight;&#13;&#10;
- if(!document.id('fullAjaxGif')){fullAjaxGif.setStyle('margin-top', h*0.3);fullAjaxGif.inject(fullAjaxId,'before');}&#13;&#10;
- new Fx.Morph(fullAjaxId, { duration:600, onComplete:request}).start({'height':[h, h*0.6], 'opacity':'0'});&#13;&#10;
+var h = document.id(fullAjaxId).clientHeight;&#13;&#10;
+if(!document.id('fullAjaxGif')){fullAjaxGif.setStyle('margin-top', h*0.3);fullAjaxGif.inject(fullAjaxId,'before');}&#13;&#10;
+new Fx.Morph(fullAjaxId, { duration:600, onComplete:request}).start({'height':[h, h*0.6], 'opacity':'0'});&#13;&#10;
 },&#13;&#10;
 end: function(id){&#13;&#10;
- if(document.id('fullAjaxGif')){document.id('fullAjaxGif').dispose();}&#13;&#10;
- document.id(fullAjaxId).setStyle('height','auto');&#13;&#10;
- new Fx.Tween(fullAjaxId,{ duration:300 }).start('opacity', 1);&#13;&#10;
+if(document.id('fullAjaxGif')){document.id('fullAjaxGif').dispose();}&#13;&#10;
+document.id(fullAjaxId).setStyle('height','auto');&#13;&#10;
+new Fx.Tween(fullAjaxId,{ duration:300 }).start('opacity', 1);&#13;&#10;
 }&#13;&#10;
 });
 "
-          label="PLG_ADDFULLAJAX_FIELD_ANIM_DATA_LABEL" description="PLG_ADDFULLAJAX_FIELD_ANIM_DATA_DESCR"/>
+					label="PLG_ADDFULLAJAX_FIELD_ANIM_DATA_LABEL" description="PLG_ADDFULLAJAX_FIELD_ANIM_DATA_DESCR"/>
 
-        <field name="spacer12" type="spacer"	hr="true" />
+				<field name="spacer12" type="spacer"	hr="true" />
 
-        <field name="debug_ajax" type="radio" default="0"
-        	class="btn-group btn-group-yesno"
-        	label="PLG_ADDFULLAJAX_FIELD_DEBUG_AJAX_LABEL"
-        	description="PLG_ADDFULLAJAX_FIELD_DEBUG_AJAX_DESCR" >
-          <option value="1">JYes</option>
-          <option value="0">JNo</option>
-        </field>
+				<field name="debug_ajax" type="radio" default="0"
+					class="btn-group btn-group-yesno"
+					label="PLG_ADDFULLAJAX_FIELD_DEBUG_AJAX_LABEL"
+					description="PLG_ADDFULLAJAX_FIELD_DEBUG_AJAX_DESCR" >
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
 
-        <field name="debug_script" type="radio" default="0"
-        	class="btn-group btn-group-yesno"
-        	label="PLG_ADDFULLAJAX_FIELD_DEBUG_SCRIPT_LABEL"
-        	description="PLG_ADDFULLAJAX_FIELD_DEBUG_SCRIPT_DESCR">
-          <option value="1">JYes</option>
-          <option value="0">JNo</option>
-        </field>
+				<field name="debug_script" type="radio" default="0"
+					class="btn-group btn-group-yesno"
+					label="PLG_ADDFULLAJAX_FIELD_DEBUG_SCRIPT_LABEL"
+					description="PLG_ADDFULLAJAX_FIELD_DEBUG_SCRIPT_DESCR">
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
 
-        <field name="debug_link" type="radio" default="0"
-        	class="btn-group btn-group-yesno"
-        	label="PLG_ADDFULLAJAX_FIELD_DEBUG_LINK_LABEL"
-        	description="PLG_ADDFULLAJAX_FIELD_DEBUG_LINK_DESCR">
-          <option value="1">JYes</option>
-          <option value="0">JNo</option>
-        </field>
+				<field name="debug_link" type="radio" default="0"
+					class="btn-group btn-group-yesno"
+					label="PLG_ADDFULLAJAX_FIELD_DEBUG_LINK_LABEL"
+					description="PLG_ADDFULLAJAX_FIELD_DEBUG_LINK_DESCR">
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
 
-        <field name="debug_style" type="radio" default="0"
-        	class="btn-group btn-group-yesno"
-        	label="PLG_ADDFULLAJAX_FIELD_DEBUG_STYLE_LABEL"
-        	description="PLG_ADDFULLAJAX_FIELD_DEBUG_STYLE_DESCR">
-          <option value="1">JYes</option>
-          <option value="0">JNo</option>
-        </field>
+				<field name="debug_style" type="radio" default="0"
+					class="btn-group btn-group-yesno"
+					label="PLG_ADDFULLAJAX_FIELD_DEBUG_STYLE_LABEL"
+					description="PLG_ADDFULLAJAX_FIELD_DEBUG_STYLE_DESCR">
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
 
-        <field name="uncompressed_version" type="radio" default="0"
-        	class="btn-group btn-group-yesno"
-        	label="PLG_ADDFULLAJAX_FIELD_UNCOMPRESSED_VERSION_LABEL"
-        	description="PLG_ADDFULLAJAX_FIELD_UNCOMPRESSED_VERSION_DESCR">
-          <option value="1">JYes</option>
-          <option value="0">JNo</option>
-        </field>
+				<field name="uncompressed_version" type="radio" default="0"
+					class="btn-group btn-group-yesno"
+					label="PLG_ADDFULLAJAX_FIELD_UNCOMPRESSED_VERSION_LABEL"
+					description="PLG_ADDFULLAJAX_FIELD_UNCOMPRESSED_VERSION_DESCR">
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
 
-      </fieldset>
-    </fields>
-  </config>
+			</fieldset>
+		</fields>
+	</config>
 
 </extension>
