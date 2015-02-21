@@ -38,35 +38,14 @@ class JFormFieldJsCssTricks extends JFormField
 	protected function getLabel()
 	{
 		$doc = JFactory::getDocument();
-		$app = JFactory::getApplication();
 
-		// for j2.5
-		$app->setUserState('editor.source.syntax', 'js');
-
-		if (version_compare(JVERSION, '3.2', 'ge')) {
-			//fix for labels float
-			$doc->addStyleDeclaration('#attrib-advanced .control-label{clear:both;float:none;}
+		//fix for labels float
+		$doc->addStyleDeclaration('#attrib-advanced .control-label{clear:both;float:none;}
 #attrib-advanced .controls{margin-left: 0;}');
-		}
-
-
-		if (!version_compare(JVERSION, '3.0', 'ge')) {
-			//fix for labels float
-			$doc->addStyleDeclaration('#jform_params_cnfg_data-lbl,#jform_params_anim_data-lbl{clear:both;float:none;}');
-		}
 
 		//couple javascript tricks
-		JHTML::_('behavior.framework', true);
-
-		$js_def = '/plugins/system/addfullajax/fields/jscsstricks.js';
-		//js file by template
-		$js_tmpl = '/plugins/system/addfullajax/fields/jscsstricks.'.$app->getTemplate().'.js';
-
-		if (JFile::exists(JPATH_ROOT . $js_tmpl)) {
-			$doc->addScript( JURI::root(true) . $js_tmpl);
-		} else {
-			$doc->addScript( JURI::root(true) . $js_def);
-		}
+		JHtml::_('jquery.framework');
+		JHtml::_('script', 'plg_system_addfullajax/field-jscsstricks.js', false, true);
 
 		return ' ';
 

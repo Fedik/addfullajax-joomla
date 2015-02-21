@@ -9,6 +9,11 @@
 			<include name="**" />
 		</fileset>
 
+		<!-- Fileset for Media files -->
+		<fileset dir="${project.basedir}/plg_addfullajax/media" id="media">
+			<include name="**/**" />
+		</fileset>
+
 		<!-- Fileset for template -->
 		<fileset dir="${project.basedir}/fullajax_tmpl" id="template_files">
 			<include name="**" />
@@ -31,6 +36,9 @@
 			<copy todir="${destination}/plugins/system/addfullajax/">
 				<fileset refid="plugin_files" />
 			</copy>
+			<copy todir="${destination}/media/plg_system_addfullajax">
+				<fileset refid="media" />
+	        </copy>
 			<copy todir="${destination}/templates/fullajax_tmpl">
 				<fileset refid="template_files" />
 			</copy>

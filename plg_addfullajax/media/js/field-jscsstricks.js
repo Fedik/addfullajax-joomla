@@ -32,6 +32,15 @@
 		    el.CodeMirror.refresh();
 		});
 	});
+
+	// remove Chosen from Menu fields
+	if($.fn.chosen){
+		try {
+			$('#jform_params_menu_items_ignor, #jform_params_menu_items_no_ax_load').chosen('destroy');
+		} catch (e) {
+			window.console ? console.log(e) : null;
+		}
+	}
  })
 
  function axChangeDependsMethod(id){
