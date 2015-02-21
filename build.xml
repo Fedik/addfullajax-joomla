@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="AddFullAJAX for Joomla!" default="" basedir=".">
+
+    <!-- Copy destination; use -Ddestination="destination/path" instead -->
+	<property name="destination" value="." />
+
+    <!-- Fileset for plugin -->
+    <fileset dir="${project.basedir}/plg_addfullajax" id="plugin_files">
+        <include name="**" />
+    </fileset>
+
+    <!-- Fileset for template -->
+    <fileset dir="${project.basedir}/fullajax_tmpl" id="template_files">
+        <include name="**" />
+    </fileset>
+
+    <!-- copy_all Target -->
+    <target name="copy_all" description="copy all files to target">
+
+        <echo message="Copying files" />
+        <copy todir="${destination}">
+            <fileset refid="plugin_files" />
+        </copy>
+        <copy todir="${destination}">
+            <fileset refid="template_files" />
+        </copy>
+    </target>
+
+	<!-- install Target -->
+    <target name="install">
+		<echo message="Installing ..." />
+
+		<copy todir="${destination}/plugins/system/addfullajax/">
+            <fileset refid="plugin_files" />
+        </copy>
+
+        <copy todir="${destination}/templates/fullajax_tmpl">
+            <fileset refid="template_files" />
+        </copy>
+
+	</target>
+</project>
