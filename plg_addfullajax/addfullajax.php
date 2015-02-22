@@ -165,12 +165,13 @@ class plgSystemAddFullajax extends JPlugin
 
 		//add own JS if allowed
 		if ($this->axJsAllowed) {
-			if (!$this->params->get('uncompressed_version', 0)) {
-				JHtml::_('script', 'plg_system_addfullajax/fullajax.min.js', false, true);
-			} else {
-				JHtml::_('script', 'plg_system_addfullajax/fullajax.js', false, true);
-			}
+			// fullAjax script
+			JHtml::_('script', 'plg_system_addfullajax/fullajax.min.js', false, true);
 
+			// add jQuery that ca be used for animation
+			JHtml::_('jquery.framework');
+
+			// fullAjax configuration
 			$doc->addScriptDeclaration("/*--- AddFullAJAX ---*/\n" . $this->getJsData());
 
 			if($positionupd == 1){
@@ -416,24 +417,21 @@ FLAX.Html.onall('load', function(){
 		}
 
 		if($this->params->get('on_anim', 1)){
-			//@TODO: replace to jQuery
 			$cnfg_data .= "\n/*--- FX ---*/\n". $this->params->get('anim_data',"
-var fullAjaxGif = new Element('img',{
- 'id':'fullAjaxGif',
- 'src':fullAjaxBase + '/media/plg_system_addfullajax/images/ajax-loader.gif',
- 'alt':'Loading...',
- 'style': 'position:absolute;left:50%;z-index:800;'
+var fullAjaxGif = jQuery('<img/>',{
+  'id':'fullAjaxGif','alt':'Loading...',
+  'src':fullAjaxBase + '/media/plg_system_addfullajax/images/ajax-loader.gif',
+  'style': 'position:absolute;left:50%;top:40%;z-index:800;'
 });
 FLAX.Effect.add({id:fullAjaxId, start: function(id, request){
- var h = document.id(fullAjaxId).clientHeight;
- if(!document.id('fullAjaxGif')){fullAjaxGif.setStyle('margin-top', h*0.3);fullAjaxGif.inject(fullAjaxId,'before');}
- new Fx.Morph(fullAjaxId, { duration:600, onComplete:request}).start({'height':[h, h*0.6], 'opacity':'0'});
-},
-end: function(id){
- if(document.id('fullAjaxGif')){document.id('fullAjaxGif').dispose();}
- document.id(fullAjaxId).setStyle('height','auto');
- new Fx.Tween(fullAjaxId,{ duration:300 }).start('opacity', 1);
-}
+  var content = jQuery('#'+fullAjaxId);
+  if (!jQuery('#fullAjaxGif').length){fullAjaxGif.insertBefore(content);};
+  content.stop().animate({opacity:0},1000,request());
+ },end: function(id){
+  var i = jQuery('#fullAjaxGif');
+  if (i.length){i.remove();};
+  jQuery('#'+fullAjaxId).stop().animate({opacity: 1},800);
+ }
 });
 ");
 		}

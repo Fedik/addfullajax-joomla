@@ -165,22 +165,21 @@ FLAX.linkEqual['[~q~]'] = '?';FLAX.directLink();&#13;&#10;
 
 				<field name="anim_data" type="editor" rows="26" cols="43"
 					editor="codemirror|none" buttons="false" filter="raw" syntax="js"
-						default="var fullAjaxGif = new Element('img',{&#13;&#10;
-'id':'fullAjaxGif','alt':'Loading...',&#13;&#10;
-'src':fullAjaxBase + '/media/plg_system_addfullajax/images/ajax-loader.gif',&#13;&#10;
-'style': 'position:absolute;left:50%;z-index:800;'&#13;&#10;
+						default="var fullAjaxGif = jQuery('&lt;img/&gt;',{&#13;&#10;
+ 'id':'fullAjaxGif','alt':'Loading...',&#13;&#10;
+ 'src':fullAjaxBase + '/media/plg_system_addfullajax/images/ajax-loader.gif',&#13;&#10;
+ 'style': 'position:absolute;left:50%;top:40%;z-index:800;'&#13;&#10;
 });&#13;&#10;
 FLAX.Effect.add({id:fullAjaxId, start: function(id, request){&#13;&#10;
-var h = document.id(fullAjaxId).clientHeight;&#13;&#10;
-if(!document.id('fullAjaxGif')){fullAjaxGif.setStyle('margin-top', h*0.3);fullAjaxGif.inject(fullAjaxId,'before');}&#13;&#10;
-new Fx.Morph(fullAjaxId, { duration:600, onComplete:request}).start({'height':[h, h*0.6], 'opacity':'0'});&#13;&#10;
-},&#13;&#10;
-end: function(id){&#13;&#10;
-if(document.id('fullAjaxGif')){document.id('fullAjaxGif').dispose();}&#13;&#10;
-document.id(fullAjaxId).setStyle('height','auto');&#13;&#10;
-new Fx.Tween(fullAjaxId,{ duration:300 }).start('opacity', 1);&#13;&#10;
-}&#13;&#10;
-});
+  var content = jQuery('#'+fullAjaxId);&#13;&#10;
+  if (!jQuery('#fullAjaxGif').length){fullAjaxGif.insertBefore(content);};&#13;&#10;
+  content.stop().animate({opacity:0},1000,request());&#13;&#10;
+ },end: function(id){&#13;&#10;
+  var i = jQuery('#fullAjaxGif');&#13;&#10;
+  if (i.length){i.remove();};&#13;&#10;
+  jQuery('#'+fullAjaxId).stop().animate({opacity: 1},800);&#13;&#10;
+ }&#13;&#10;
+});&#13;&#10;
 "
 					label="PLG_ADDFULLAJAX_FIELD_ANIM_DATA_LABEL" description="PLG_ADDFULLAJAX_FIELD_ANIM_DATA_DESCR"/>
 
@@ -214,14 +213,6 @@ new Fx.Tween(fullAjaxId,{ duration:300 }).start('opacity', 1);&#13;&#10;
 					class="btn-group btn-group-yesno"
 					label="PLG_ADDFULLAJAX_FIELD_DEBUG_STYLE_LABEL"
 					description="PLG_ADDFULLAJAX_FIELD_DEBUG_STYLE_DESCR">
-					<option value="1">JYes</option>
-					<option value="0">JNo</option>
-				</field>
-
-				<field name="uncompressed_version" type="radio" default="0"
-					class="btn-group btn-group-yesno"
-					label="PLG_ADDFULLAJAX_FIELD_UNCOMPRESSED_VERSION_LABEL"
-					description="PLG_ADDFULLAJAX_FIELD_UNCOMPRESSED_VERSION_DESCR">
 					<option value="1">JYes</option>
 					<option value="0">JNo</option>
 				</field>
