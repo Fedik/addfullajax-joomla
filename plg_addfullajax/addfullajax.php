@@ -107,6 +107,8 @@ class plgSystemAddFullajax extends JPlugin
 			//save default template
 			$this->defTemplate = $app->getTemplate();
 
+			$app->set('plg_fullajax_ajaxrequest', true);
+
 			//change default template
 			switch ($this->params->get('positionupd', 3)) {
 				case 3:
@@ -222,7 +224,7 @@ class plgSystemAddFullajax extends JPlugin
 				$tmp .= '</body>';
 
 				//clean <body> and insert only position that we need update
-				//in some cases regexp here can be cause for PHP Segmentation fault (11)
+				//in some cases regexp here can cause PHP Segmentation fault (11)
 				//$tmpl_new = preg_replace('#<body.*>(.|\n)*</body>#i', $tmp, $tmpl);
 				$body_start = stripos($tmpl, '<body');
 				$body_end = stripos($tmpl, '</body>') + 7;
@@ -294,7 +296,8 @@ class plgSystemAddFullajax extends JPlugin
 
 			}
 
-			$body = JResponse::getBody();
+			// JResponse is Deprecated
+			$body = method_exists($app, 'getBody') ? $app->getBody() : JResponse::getBody();
 
 			// remove system css
 			$body = preg_replace("/<link.*href=([\"']([^\"]+(general|template|template_rtl)\.css.*?)[\"']).*\/>/i", '', $body);
@@ -302,7 +305,8 @@ class plgSystemAddFullajax extends JPlugin
 			$body = preg_replace('/<body.*>/i', '<body>  <!-- :ax:'.$this->params->get('contid','content').':begin: //-->', $body);
 			$body = str_ireplace('</body>','<!-- :ax:'.$this->params->get('contid','content').':end: //--> '.$pos.'</body>', $body);
 
-			JResponse::setBody($body);
+			// JResponse is Deprecated
+			method_exists($app, 'setBody') ? $app->setBody($body) : JResponse::setBody($body);
  		}
 
  		return true;
