@@ -1,9 +1,8 @@
 <?php
 /**
- * @version		index.php  2012.10.03
- * @package		Add FullAjax Plugin
- * @author  Fedik
- * @email	getthesite@gmail.com
+ * @version	2015.03.21
+ * @package	Add FullAjax Plugin
+ * @author  Fedir Zinchuk
  * @link    http://www.getsite.org.ua
  * @license	GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */

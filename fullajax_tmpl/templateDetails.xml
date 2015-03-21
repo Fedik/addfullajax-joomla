@@ -2,11 +2,11 @@
 <extension version="3.0" type="template" client="site" method="upgrade">
 	<name>fullajax_tmpl</name>
 	<creationDate>August 2011</creationDate>
-	<author>Fedik</author>
+	<author>Fedir Zinchuk</author>
 	<authorEmail>getthesite@gmail.com</authorEmail>
 	<authorUrl>www.getsite.org.ua</authorUrl>
 	<license>GNU/GPLv3</license>
-	<version>2012.10.03</version>
+	<version>2015.03.21</version>
 	<description>This template for "Add FullAjax" plugin. Do not use it for	site decoration.</description>
 
 	<files>

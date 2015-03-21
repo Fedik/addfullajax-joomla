@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.0" type="plugin" group="system" method="upgrade">
 	<name>plg_system_addfullajax</name>
-	<author>Fedik</author>
+	<author>Fedir Zinchuk</author>
 	<creationDate>July 2010</creationDate>
 	<license>GNU/GPLv3</license>
 	<authorEmail>getthesite@gmail.com</authorEmail>
 	<authorUrl>www.getsite.org.ua</authorUrl>
-	<version>2013.11.23</version>
+	<version>2015.03.21</version>
 	<description><![CDATA[PLG_ADDFULLAJAX_XML_DESCRIPTION]]></description>
 
 	<files folder="addfullajax">
