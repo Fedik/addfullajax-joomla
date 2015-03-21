@@ -380,9 +380,7 @@ FLAX.Html.onall( \'beforerequest\', function(o){
 		//scroll up after each request
 		if($this->params->get('scrlUp', 1) == 1){
 			//for nice scroll ;)
-			//@TODO: replace to jQuery
-			JHtml::_('behavior.framework', true);
-			$cnfg_data .= "\nFLAX.Html.onall('response', function(){new Fx.Scroll(window).toTop();});";
+			$cnfg_data .= "\n".'FLAX.Html.onall("response", function(){jQuery("html, body").animate({scrollTop: 0}, 300);});';
 		}
 		//enable autocheck active menu item
 		if($this->params->get('checkmenuit', 1)){
@@ -407,6 +405,7 @@ FLAX.Html.onall( \'beforerequest\', function(o){
 				$searchNewAcriv[] = 'ul li.item-\'+it';
 			}
 
+			JHtml::_('behavior.framework', true);
 			$cnfg_data .= "
 var fullAjaxMItems = [];
 FLAX.Html.onall('load', function(){
