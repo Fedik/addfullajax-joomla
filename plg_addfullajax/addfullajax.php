@@ -392,7 +392,7 @@ FLAX.Html.onall( \'beforerequest\', function(o){
 			$searchNewAcriv = array();
 			//build js selectors
 			if($menuClass && $menuClass != '*'){
-				$menuSelectors = array_unique(explode(',',$menuClass));
+				$menuSelectors = array_unique(explode(',', $menuClass));
 				foreach($menuSelectors as $sel){
 					if($sel = trim($sel)){
 						$searchOldActiv[] = $sel . ' .active';
@@ -405,17 +405,17 @@ FLAX.Html.onall( \'beforerequest\', function(o){
 				$searchNewAcriv[] = 'ul li.item-\'+it';
 			}
 
-			JHtml::_('behavior.framework', true);
 			$cnfg_data .= "
 var fullAjaxMItems = [];
 FLAX.Html.onall('load', function(){
- $$('" . implode(',', $searchOldActiv) . "').removeClass('active').removeClass('current');
- fullAjaxMItems.each(function(it,i){
-  var e = $$('" . implode('+\',', $searchNewAcriv) . ");
+ jQuery('" . implode(',', $searchOldActiv) . "').removeClass('active current');
+ for(var i = 0, l = fullAjaxMItems.length; i < l; i++) {
+  var it = fullAjaxMItems[i];
+  var e = jQuery('" . implode('+\',', $searchNewAcriv) . ");
   if(e.length){var c = i == 0 ? 'current active' : 'active'; e.addClass(c);".
-  			(($this->params->get('checkmenuit_active_for_a', 0)) ? "e.getElement('a').addClass(c);" : '')
+  			(($this->params->get('checkmenuit_active_for_a', 0)) ? "e.children('a').addClass(c);" : '')
   ."}
- });
+ };
 });";
 		}
 

@@ -149,7 +149,7 @@
 			<fieldset name="advanced">
 
 				<field name="cnfg_data" type="editor" rows="23" cols="43"
-					editor="codemirror|none" buttons="false" filter="raw" syntax="js"
+					editor="codemirror|none" buttons="false" filter="raw" syntax="javascript"
 						default="FLAX.Filter.add({url:'/', id:fullAjaxId});&#13;&#10;
 FLAX.Filter.add({query:['task=weblink','task=profile','task=user.login','task=user.logout','task=article.edit'],  type:'nowrap'});&#13;&#10;
 FLAX.Filter.on('beforewrap', function(o) {&#13;&#10;
@@ -164,7 +164,7 @@ FLAX.linkEqual['[~q~]'] = '?';FLAX.directLink();&#13;&#10;
 					label="PLG_ADDFULLAJAX_FIELD_CNFG_DATA_LABEL" description="PLG_ADDFULLAJAX_FIELD_CNFG_DATA_DESCR"/>
 
 				<field name="anim_data" type="editor" rows="26" cols="43"
-					editor="codemirror|none" buttons="false" filter="raw" syntax="js"
+					editor="codemirror|none" buttons="false" filter="raw" syntax="javascript"
 						default="var fullAjaxGif = jQuery('&lt;img/&gt;',{&#13;&#10;
  'id':'fullAjaxGif','alt':'Loading...',&#13;&#10;
  'src':fullAjaxBase + '/media/plg_system_addfullajax/images/ajax-loader.gif',&#13;&#10;
