@@ -1,9 +1,8 @@
 <?php
 /**
- * @version	2013.11.23 (1.0)
+ * @version	2015.04.05 (1.1)
  * @package Add FullAjax for Joomla!
- * @author  Fedik
- * @email	getthesite@gmail.com
+ * @author  Fedir Zinchuk
  * @link    http://www.getsite.org.ua
  * @license	GNU/GPL http://www.gnu.org/licenses/gpl.html
  */

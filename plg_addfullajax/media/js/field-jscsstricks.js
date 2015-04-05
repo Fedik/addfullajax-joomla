@@ -1,5 +1,5 @@
 /**
- * @version	2015.03.21 (1.1)
+ * @version	2015.04.05 (1.1)
  * @package Add FullAjax for Joomla!
  * @author  Fedir Zinchuk
  * @link    http://www.getsite.org.ua

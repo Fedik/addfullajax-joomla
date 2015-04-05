@@ -1,6 +1,6 @@
 <?php
 /**
- * @version	2015.03.21 (1.1) use Fullajax lib v1.3.2
+ * @version	2015.04.05 (1.1) use Fullajax lib v1.3.2
  * @package Add FullAjax for Joomla!
  * @author  Fedir Zinchuk
  * @link    http://www.getsite.org.ua
@@ -34,7 +34,8 @@ class plgSystemAddFullajax extends JPlugin
 	public function onAfterRoute() {
 		$app = JFactory::getApplication();
 
-		if ($app->isAdmin()) {
+		if ($app->isAdmin())
+		{
 			return;
 		}
 
@@ -56,11 +57,13 @@ class plgSystemAddFullajax extends JPlugin
 
 		}
 		//compare templatestyles
-		if($this->params->get('useDiffStyle', 1) && isset($_SERVER['HTTP_AX_CURENT_STYLE'])) {
+		if($this->params->get('useDiffStyle', 1) && isset($_SERVER['HTTP_AX_CURENT_STYLE']))
+		{
 			$oldStyle = explode(',', base64_decode($_SERVER['HTTP_AX_CURENT_STYLE']));
 			$nedTemplate = $app->getTemplate(true);
 			//refresh page if requested other template
-			if ($nedTemplate->id != $oldStyle[1]) {
+			if ($nedTemplate->id != $oldStyle[1])
+			{
 				$this->sendReload();
 			}
 		}
@@ -71,12 +74,13 @@ class plgSystemAddFullajax extends JPlugin
 	 * check whether we allowed use FullAJAX script
 	 * and assign new template for AJAX answer, if need
 	 */
-	 public function onAfterDispatch() {
-
+	 public function onAfterDispatch()
+	 {
 		$app = JFactory::getApplication();
 		$doc = JFactory::getDocument();
 
-		if ($app->isAdmin()) {
+		if ($app->isAdmin())
+		{
 			return;
 		}
 
@@ -96,27 +100,32 @@ class plgSystemAddFullajax extends JPlugin
 		){
 			//need refresh page if request was from fullajax
 			//for prevent display full site inside block
-			if ($this->nedAjaxRespons) {
+			if ($this->nedAjaxRespons)
+			{
 				$this->sendReload();
 				return;
 			}
 			$this->nedAjaxRespons = false;
-
-		} elseif($this->nedAjaxRespons)	{ //render only part of page if ajax request
+		}
+		elseif($this->nedAjaxRespons)
+		{
+			//render only part of page if ajax request
 			//save default template
 			$this->defTemplate = $app->getTemplate();
 
 			$app->set('plg_fullajax_ajaxrequest', true);
 
 			//change default template
-			switch ($this->params->get('positionupd', 3)) {
+			switch ($this->params->get('positionupd', 3))
+			{
 				case 3:
 					break;
 				case 2:
 					$app->input->set('plg_fullajax_contid', $this->params->get('contid','content'));
 					$app->setTemplate('fullajax_tmpl');
 					// joomla 3.2 fix
-					if (version_compare(JVERSION, '3.2', 'ge')) {
+					if (version_compare(JVERSION, '3.2', 'ge'))
+					{
 						$template = $app->getTemplate(true);
 						$app->set('theme', $template->template);
 						$app->set('themeParams', $template->params);
@@ -126,7 +135,8 @@ class plgSystemAddFullajax extends JPlugin
 				default:
 					$app->setTemplate('system');
 					// joomla 3.2 fix
-					if (version_compare(JVERSION, '3.2', 'ge')) {
+					if (version_compare(JVERSION, '3.2', 'ge'))
+					{
 						$template = $app->getTemplate(true);
 						$app->set('theme', $template->template);
 						$app->set('themeParams', $template->params);
@@ -135,20 +145,20 @@ class plgSystemAddFullajax extends JPlugin
 			}
 
 			//add active menu items, for check active by id: class="item-ID"
-			//if($this->params->get('checkmenuit', 1)) {
 			$menu_active_tree = $menu_active ? array_reverse($menu_active->tree) : array();
 			//check if alias exist
-			foreach ($menu->getItems('type', 'alias') as $item){
-				if ($item->params->get('aliasoptions') == $menu_active->id){
+			foreach ($menu->getItems('type', 'alias') as $item)
+			{
+				if ($item->params->get('aliasoptions') == $menu_active->id)
+				{
 					$menu_active_tree[] = $item->id;
 				}
 			}
 			$menu_active_tree = json_encode($menu_active_tree);
 			$doc->addScriptDeclaration('var fullAjaxMItems = ' . $menu_active_tree . ';');
-			//}
-
-
-		} else {
+		}
+		else
+		{
 			//we allow add own JavaScript
 			//@see: onBeforeRender()
 			$this->axJsAllowed = true;
@@ -159,13 +169,15 @@ class plgSystemAddFullajax extends JPlugin
 	 * connect FullAJAX scripts,
 	 * and add wrappers for the positions that need update if position update == auto
 	 */
-	 public function onBeforeRender() {
+	 public function onBeforeRender()
+	 {
 		$app = JFactory::getApplication();
 		$doc = JFactory::getDocument();
 		$positionupd = $this->params->get('positionupd', 3);
 
 		//add own JS if allowed
-		if ($this->axJsAllowed) {
+		if ($this->axJsAllowed)
+		{
 			// fullAjax script
 			JHtml::_('script', 'plg_system_addfullajax/fullajax.min.js', false, true);
 
@@ -175,10 +187,12 @@ class plgSystemAddFullajax extends JPlugin
 			// fullAjax configuration
 			$doc->addScriptDeclaration("/*--- AddFullAJAX ---*/\n" . $this->getJsData());
 
-			if($positionupd == 1){
+			if($positionupd == 1)
+			{
 				//add fullajax Model2Blocks configuration for update block
 				$markers = $this->parsePositionParams();
-				if (!empty($markers)) {
+				if (!empty($markers))
+				{
 					$markers = array_unique(array_values($markers));
 					$markers[] = $this->params->get('contid', 'content');
 					$this->addModel2Blocks($markers);
@@ -187,15 +201,16 @@ class plgSystemAddFullajax extends JPlugin
 		}
 
 		//if  update module == automatic
-		if ($app->isSite() && $positionupd == 3) {
-
+		if ($app->isSite() && $positionupd == 3)
+		{
 			//get template info
 			$has_get = method_exists($doc, 'get');
 			$tags = $has_get ? $doc->get('_template_tags') : $this->getValue($doc, '_template_tags');
 			$tmpl = $has_get ? $doc->get('_template') : $this->getValue($doc, '_template');
 
 			// Show warning if empty
-			if(empty($tags) || empty($tmpl)) {
+			if(empty($tags) || empty($tmpl))
+			{
 				$app->enqueueMessage('AddFullAJAX error: Automatic positions update does not supports for a current template!', 'error');
 				return;
 			}
@@ -209,12 +224,14 @@ class plgSystemAddFullajax extends JPlugin
 			$markers = array();
 			$tmpl_new = '';
 
-			if ($this->nedAjaxRespons) {
+			if ($this->nedAjaxRespons)
+			{
 				$tmp = '<body>';
 				//colect positions that need update
 				//and add Model2Blocks markers
 				foreach ($tags as $jdoc => $data){
-					if ($data['type'] != 'head' && in_array($data['name'], $positions)) {
+					if ($data['type'] != 'head' && in_array($data['name'], $positions))
+					{
 						//add markers. Use 'name' for positions, 'type' - for message and component
 						$name = $data['name'] ? $data['name'] : $data['type'];
 						$tmp .= '<!-- :ax:flax-'. $name .':begin: //-->'.$jdoc.'<!-- :ax:flax-' . $name . ':end: //-->';
@@ -230,10 +247,12 @@ class plgSystemAddFullajax extends JPlugin
 
 				$tmpl_new = substr_replace($tmpl, $tmp, $body_start, $body_end - $body_start);
 			}
-			elseif($this->axJsAllowed) {
+			elseif($this->axJsAllowed)
+			{
 				//add wrappers for a position update using FullAJAX Model2Blocks
 				foreach ($tags as $jdoc => $data){
-					if ($data['type'] != 'head'  && in_array($data['name'], $positions) ){
+					if ($data['type'] != 'head'  && in_array($data['name'], $positions) )
+					{
 						//add markers(id`s) . Use 'name' for positions, 'type' - for message and component
 						$name = $data['name'] ? $data['name'] : $data['type'];
 						$patterns[] = $jdoc;
@@ -245,7 +264,8 @@ class plgSystemAddFullajax extends JPlugin
 				$tmpl_new = str_replace($patterns, $replacer, $tmpl);
 			}
 
-			if ($tmpl_new) {
+			if ($tmpl_new)
+			{
 				method_exists($doc, 'set') ? $doc->set('_template', $tmpl_new) : $this->setValue($doc, '_template', $tmpl_new);
 			}
 		}
@@ -255,7 +275,8 @@ class plgSystemAddFullajax extends JPlugin
 	/**
 	 * render the positions for AJAX answer if position update == semiautomatic
 	 */
-	public function onAfterRender() {
+	public function onAfterRender()
+	{
 		$app = JFactory::getApplication();
 		$positionupd = $this->params->get('positionupd', 3);
 
@@ -267,12 +288,14 @@ class plgSystemAddFullajax extends JPlugin
 			$pos = '';
 			//render modules if  update module == semiautomatic
 			$posParams = $this->parsePositionParams();
-			if($positionupd == 1 && !empty($posParams)){
+			if($positionupd == 1 && !empty($posParams))
+			{
 				// Render modules
 				$posInTemplate = $this->parseTemplate($posParams);
 				$app->setTemplate($this->defTemplate);
 				// joomla 3.2 fix
-				if (version_compare(JVERSION, '3.2', 'ge')) {
+				if (version_compare(JVERSION, '3.2', 'ge'))
+				{
 					$template = $app->getTemplate(true);
 					$app->set('theme', $template->template);
 					$app->set('themeParams', $template->params);
@@ -284,7 +307,9 @@ class plgSystemAddFullajax extends JPlugin
 				foreach ($blocks as $block) {//render blocks
 					$positions[$m]  = '<!-- :ax:'.trim($block).':begin: //-->';
 					foreach ($posInTemplate as $p ) {
-						if ($p['block'] == $block) {//render modules in block
+						if ($p['block'] == $block)
+						{
+							//render modules in block
 							$positions[$m] .= $renderer->render($p['name'], $p['attribs'], null);
 						}
 					}
@@ -317,7 +342,8 @@ class plgSystemAddFullajax extends JPlugin
 	 * Generate JavaScript for FullAjax configuration
 	 * @return string
 	 */
-	protected function getJsData() {
+	protected function getJsData()
+	{
 		$app = JFactory::getApplication();
 		$templ = $app->getTemplate(true);
 		$content_id = ($this->params->get('positionupd', 3) != 3) ? $this->params->get('contid','content') : 'flax-component';
@@ -339,16 +365,22 @@ FLAX.directLink();
 		//the filters for ignore menu item
 		$menu_items_ignor = $this->params->get('menu_items_ignor', array());
 		$items_noax = $this->params->get('menu_items_no_ax_load', array());
-		if(!empty($menu_items_ignor) || !empty($items_noax)){
+		if(!empty($menu_items_ignor) || !empty($items_noax))
+		{
 			$links = $this->getIgnMenuIt(array_merge($menu_items_ignor, $items_noax));
-			if(!empty($links['url'])){
+			if(!empty($links['url']))
+			{
 				$cnfg_data .= "\nFLAX.Filter.add({url:['" . implode('\',\'', $links['url']). "'], type:'nowrap'});";
-			} elseif (!empty($links['query'])){
+			}
+			elseif (!empty($links['query']))
+			{
 				$cnfg_data .= "\nFLAX.Filter.add({query:['" . implode('\',\'', $links['query']). "'], type:'nowrap'});";
 			}
 		}
+
 		//if use diferent styles
-		if($this->params->get('useDiffStyle', 1)){
+		if($this->params->get('useDiffStyle', 1))
+		{
 			$cnfg_data .= '
 FLAX.Html.onall( \'beforerequest\', function(o){
  if(!o.options.headers){o.thread.setOptions({headers:{\'Ax-Curent-Style\':\''.base64_encode($templ->template.','.$templ->id).'\'}});}
@@ -365,24 +397,29 @@ FLAX.Html.onall( \'beforerequest\', function(o){
  }
 });";
 		//disable userside caching
-		if($this->params->get('userCache', 1) == 0){
+		if($this->params->get('userCache', 1) == 0)
+		{
 			$cnfg_data .= "\nFLAX.Default.HAX_ANTICACHE = 1;FLAX.Default.USE_HISTORY_CACHE = 0;";
 		}
 		//disble using HTML5 history API
-		if($this->params->get('useHTML5', 1) == 0){
+		if($this->params->get('useHTML5', 1) == 0)
+		{
 			$cnfg_data .= "\nFLAX.Default.USE_HTML5_HISTORY = 0;";
 		}
 		//add some hack if Google Analytics
-		if($this->params->get('useGA', 0) == 1){
+		if($this->params->get('useGA', 0) == 1)
+		{
 			$cnfg_data .= "\nFLAX.Html.onall('load', function(o){ _gaq.push(['_trackPageview', o.url]); });";
 		}
 		//scroll up after each request
-		if($this->params->get('scrlUp', 1) == 1){
+		if($this->params->get('scrlUp', 1) == 1)
+		{
 			//for nice scroll ;)
 			$cnfg_data .= "\n".'FLAX.Html.onall("response", function(){jQuery("html, body").animate({scrollTop: 0}, 300);});';
 		}
 		//enable autocheck active menu item
-		if($this->params->get('checkmenuit', 1)){
+		if($this->params->get('checkmenuit', 1))
+		{
 			$cnfg_data .= "\n/*--- Change active menu item ---*/";
 
 			//check active by item id: class="item-ID"
@@ -390,16 +427,20 @@ FLAX.Html.onall( \'beforerequest\', function(o){
 			$searchOldActiv = array();
 			$searchNewAcriv = array();
 			//build js selectors
-			if($menuClass && $menuClass != '*'){
+			if($menuClass && $menuClass != '*')
+			{
 				$menuSelectors = array_unique(explode(',', $menuClass));
 				foreach($menuSelectors as $sel){
-					if($sel = trim($sel)){
+					if($sel = trim($sel))
+					{
 						$searchOldActiv[] = $sel . ' .active';
 						$searchOldActiv[] = $sel . ' .current';
 						$searchNewAcriv[] = $sel . ' li.item-\'+it';
 					}
 				}
-			} else {
+			}
+			else
+			{
 				$searchOldActiv[] = 'ul .active, ul .current';
 				$searchNewAcriv[] = 'ul li.item-\'+it';
 			}
@@ -439,16 +480,20 @@ FLAX.Effect.add({id:fullAjaxId, start: function(id, request){
 		}
 
 		//for debuging
-		if($this->params->get('debug_ajax', 0) == 1){
+		if($this->params->get('debug_ajax', 0) == 1)
+		{
 			$cnfg_data .= "\nFLAX.Default.DEBUG_AJAX=1;";
 		}
-		if($this->params->get('debug_script', 0) == 1){
+		if($this->params->get('debug_script', 0) == 1)
+		{
 			$cnfg_data .= "\nFLAX.Default.DEBUG_SCRIPT=1;";
 		}
-		if($this->params->get('debug_link', 0) == 1){
+		if($this->params->get('debug_link', 0) == 1)
+		{
 			$cnfg_data .= "\nFLAX.Default.DEBUG_LINK=1;";
 		}
-		if($this->params->get('debug_style', 0) == 1){
+		if($this->params->get('debug_style', 0) == 1)
+		{
 			$cnfg_data .= "\nFLAX.Default.DEBUG_STYLE=1;";
 		}
 		return $cnfg_data;
@@ -462,7 +507,8 @@ FLAX.Effect.add({id:fullAjaxId, start: function(id, request){
 	protected function addModel2Blocks($markers) {
 		$markers = array_unique($markers);
 
-		if ($js = json_encode(array_combine($markers, $markers))) {
+		if ($js = json_encode(array_combine($markers, $markers)))
+		{
 			$js =  'FLAX.Model2Blocks[fullAjaxId] = '. $js .';';
 			JFactory::getDocument()->addScriptDeclaration($js);
 		}
@@ -479,14 +525,17 @@ FLAX.Effect.add({id:fullAjaxId, start: function(id, request){
 		$links = array();
 		$isSef = JApplicationSite::getRouter()->getMode();
 
-		foreach($itemids as $id){
+		foreach ($itemids as $id) {
 			$links[] = $isSef ? JRoute::_('index.php?Itemid=' . $id) : 'Itemid=' . $id;
 		}
 
 		// Return array for url or query
-		if ($isSef) {
+		if ($isSef)
+		{
 			return array('url' => array_unique($links));
-		} else {
+		}
+		else
+		{
 			return array('query' => array_unique($links));
 		}
 	}
@@ -495,9 +544,13 @@ FLAX.Effect.add({id:fullAjaxId, start: function(id, request){
 	 * Parse parameters for positions.
 	 * Example params for three positions: positions:id1|position2:id1|position3:id2
 	 */
-	protected function parsePositionParams() {
+	protected function parsePositionParams()
+	{
 		$positions_src = explode('|', $this->params->get('posParams',''));
-		if(empty($positions_src[0])) return array();
+		if(empty($positions_src[0]))
+		{
+			return array();
+		}
 
 		$posParams = array();
 		foreach ($positions_src as $pos) {
@@ -517,12 +570,14 @@ FLAX.Effect.add({id:fullAjaxId, start: function(id, request){
 	 *
 	 * @return	The parsed contents of the template
 	 */
-	protected function parseTemplate($posParams){
+	protected function parseTemplate($posParams)
+	{
 		$matches = array();
 		$posInTemplate = array();
 		$tmplFile = file_get_contents(JPATH_THEMES.'/'.$this->defTemplate.'/index.php');
 #		if (preg_match_all('#<jdoc:include\ type="([^"]+)" (.*)\/>#iU', $tmplFile, $matches))
-		if (preg_match_all('#<jdoc:include\ type="(module|modules)" (.*)\/>#iU', $tmplFile, $matches)) {
+		if (preg_match_all('#<jdoc:include\ type="(module|modules)" (.*)\/>#iU', $tmplFile, $matches))
+		{
 			$count = count($matches[1]);
 			$needPos = array_keys($posParams);
 
@@ -532,7 +587,8 @@ FLAX.Effect.add({id:fullAjaxId, start: function(id, request){
 				$type  = $matches[1][$i];
 				$name  = isset($attribs['name']) ? $attribs['name'] : null;
 				//return info only for a positions that we need
-				if(in_array($name, $needPos)){
+				if(in_array($name, $needPos))
+				{
 					unset($needPos[array_search($name, $needPos)]);
 					$posInTemplate[$i] = array('block' => $posParams[$name],'type' => $type, 'name' => $name, 'attribs' => $attribs);
 				}
@@ -545,7 +601,8 @@ FLAX.Effect.add({id:fullAjaxId, start: function(id, request){
 	/**
 	 *  send command to client for refresh page
 	 */
-	protected function sendReload(){
+	protected function sendReload()
+	{
 		$url = JFactory::getURI()->toString(); // get link
 		JResponse::setHeader('Ax-Action', 'reload'); // send command to reload
 		JResponse::sendHeaders();
@@ -564,7 +621,8 @@ FLAX.Effect.add({id:fullAjaxId, start: function(id, request){
 	 *
 	 * @return  mixed  The value of the property.
 	 */
-	protected function getValue($object, $propertyName){
+	protected function getValue($object, $propertyName)
+	{
 		$refl = new ReflectionClass($object);
 		$property = $refl->getProperty($propertyName);
 		$property->setAccessible(true);
@@ -579,7 +637,8 @@ FLAX.Effect.add({id:fullAjaxId, start: function(id, request){
 	 *
 	 * @return  void
 	 */
-	protected function setValue($object, $propertyName, $value){
+	protected function setValue($object, $propertyName, $value)
+	{
 		$refl = new ReflectionClass($object);
 		$property = $refl->getProperty($propertyName);
 		$property->setAccessible(true);

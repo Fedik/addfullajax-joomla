@@ -1,6 +1,6 @@
 <?php
 /**
- * @version	2015.03.21
+ * @version	2015.04.05
  * @package	Add FullAjax Plugin
  * @author  Fedir Zinchuk
  * @link    http://www.getsite.org.ua
