@@ -474,61 +474,21 @@ FLAX.Effect.add({id:fullAjaxId, start: function(id, request){
 	 *
 	 * @return array
 	 */
-	protected function getIgnMenuIt( array $itemids){
-		$app = JFactory::getApplication();
-		$menu = $app->getMenu();
-		$router = JSite::getRouter();
+	protected function getIgnMenuIt( array $itemids)
+	{
 		$links = array();
-		for ($i = 0; $i < count($itemids); $i++) {
-			if (empty($itemids[$i])) {
-				continue;
-			}
-			$item = $menu->getItem($itemids[$i]);
-			if (!$item) {
-				continue;
-			}
-			//use full link if SEF enabled
-			//otherway use Itemid=ID query
-			if ($router->getMode()) {
-				$links[$i] = $item->link;
-				switch ($item->type)
-					{
-						case 'separator':
-							continue;
-						case 'url':
-							if ((strpos($item->link, 'index.php?') === 0) && (strpos($item->link, 'Itemid=') === false)) {
-								$links[$i] = $item->link.'&Itemid='.$item->id;
-							}
-							break;
-						case 'alias':
-							$links[$i] = 'index.php?Itemid='.$item->params->get('aliasoptions');
-							break;
-						default:
-							$links[$i] .= '&Itemid='.$item->id;
-							break;
-					}
-				if (strcasecmp(substr($links[$i], 0, 4), 'http') && (strpos($links[$i], 'index.php?') !== false)) {
-					$links[$i] = JRoute::_($links[$i], true, $item->params->get('secure'));
-				}
-				elseif ((strpos($links[$i], 'http') !== false)) {
-					//$links[$i] = null;
-					unset($links[$i]);
-				}
-			} else {
-				$links[] = 'Itemid=' . $item->id;
-				if($item->type == 'alias'){
-					$links[] = 'Itemid=' . $item->params->get('aliasoptions');
-				}
-			}
+		$isSef = JApplicationSite::getRouter()->getMode();
+
+		foreach($itemids as $id){
+			$links[] = $isSef ? JRoute::_('index.php?Itemid=' . $id) : 'Itemid=' . $id;
 		}
-		//return array for url or query
-		if ($router->getMode()) {
+
+		// Return array for url or query
+		if ($isSef) {
 			return array('url' => array_unique($links));
 		} else {
 			return array('query' => array_unique($links));
 		}
-
-
 	}
 
 	/**
