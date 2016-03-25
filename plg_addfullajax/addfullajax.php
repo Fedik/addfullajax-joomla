@@ -1,6 +1,6 @@
 <?php
 /**
- * @version	2015.04.05 (1.1) use Fullajax lib v1.3.2
+ * @version	2016.03.25 (1.3) use Fullajax lib v1.3.4
  * @package Add FullAjax for Joomla!
  * @author  Fedir Zinchuk
  * @link    http://www.getsite.org.ua
@@ -39,8 +39,8 @@ class plgSystemAddFullajax extends JPlugin
 			return;
 		}
 
-		if(isset($_SERVER['HTTP_AJAX_ENGINE']) && $_SERVER['HTTP_AJAX_ENGINE'] == 'Fullajax'
-			|| $app->input->get('ax') == 'ok' // || $use_ajax
+		if(isset($_SERVER['HTTP_AJAX_ENGINE']) && $_SERVER['HTTP_AJAX_ENGINE'] === 'Fullajax'
+			|| $app->input->get('ax') === 'ok' // || $use_ajax
 		) {
 			$this->nedAjaxRespons = true;
 
@@ -89,17 +89,17 @@ class plgSystemAddFullajax extends JPlugin
 
 		//check whether we allowed connect fullajax script
 		$items_noax = (array) $this->params->get('menu_items_no_ax_load', array());
-		if(get_class($doc) != 'JDocumentHTML'
-			|| ($app->input->get('option') == 'com_search' && $app->input->get('type') == 'json')
-			|| ($app->input->get('option') == 'com_content' && $app->input->get('print'))
-			|| ($app->input->get('option') == 'com_mailto' && $app->input->get('view') == 'mailto')
-			|| $app->input->get('layout') == 'edit' //disable on edit, for prevernt some errors with the editor
-			|| $app->input->get('layout') == 'modal'
+		if(!($doc instanceof JDocumentHtml)
 			|| $app->isAdmin()
 			|| ($menu_active && in_array($menu_active->id, $items_noax))
+			|| ($app->input->get('option') === 'com_search' && $app->input->get('type') === 'json')
+			|| ($app->input->get('option') === 'com_content' && $app->input->get('print'))
+			|| ($app->input->get('option') === 'com_mailto' && $app->input->get('view') === 'mailto')
+			|| $app->input->get('layout')  === 'edit' //disable on edit, for prevernt some errors with the editor
+			|| $app->input->get('layout')  === 'modal'
 		){
-			//need refresh page if request was from fullajax
-			//for prevent display full site inside block
+			// Need to refresh the page if the request was from fullajax
+			// to prevent display full site inside block
 			if ($this->nedAjaxRespons)
 			{
 				$this->sendReload();
@@ -360,7 +360,7 @@ FLAX.Filter.on('beforewrap', function(o) {
 FLAX.Default.sprt_url = '!';
 FLAX.linkEqual['!ax!'+fullAjaxId+'!'] = 'ajx';
 FLAX.linkEqual['[~q~]'] = '?';
-FLAX.directLink();
+//FLAX.directLink();
 ");
 		//the filters for ignore menu item
 		$menu_items_ignor = $this->params->get('menu_items_ignor', array());

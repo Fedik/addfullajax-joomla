@@ -1,6 +1,5 @@
 <?php
 /**
- * @version	2015.04.05 (1.1)
  * @package Add FullAjax for Joomla!
  * @author  Fedir Zinchuk
  * @link    http://www.getsite.org.ua

@@ -6,7 +6,7 @@
 	<license>GNU/GPLv3</license>
 	<authorEmail>getthesite@gmail.com</authorEmail>
 	<authorUrl>www.getsite.org.ua</authorUrl>
-	<version>2015.04.05</version>
+	<version>2016.03.25</version>
 	<description><![CDATA[PLG_ADDFULLAJAX_XML_DESCRIPTION]]></description>
 
 	<files folder="addfullajax">
@@ -157,7 +157,7 @@ var id = o.el.getAttribute('id'), regExt = /.+\.(jpg|jpeg|gif|png|mp3|mp4|ogg|og
 if(id == ('login-form') || id == ('form-login') || (o.el.href &#38;&#38; (regExt.test(o.el.href) || o.el.href.indexOf('#') != -1))){return false;}&#13;&#10;
 });&#13;&#10;
 FLAX.Default.sprt_url = '!';FLAX.linkEqual['!ax!'+fullAjaxId+'!'] = 'ajx';&#13;&#10;
-FLAX.linkEqual['[~q~]'] = '?';FLAX.directLink();&#13;&#10;
+FLAX.linkEqual['[~q~]'] = '?';//FLAX.directLink();&#13;&#10;
 /* call the code when new content loaded, can be used for initialise the broken scripts */&#13;&#10;
 /* FLAX.Html.onall('load', function(data){alert('New content loaded!');}); */
 "
