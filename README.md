@@ -1,4 +1,4 @@
-#addFullAJAX - dev repository for a Joomla! plugin
+# addFullAJAX - dev repository for a Joomla! plugin
 
 Plugin connect the FullAJAX library to Joomla! that allow simple use AJAX/AHAH tehnology on the Joomla sites.
 
@@ -7,7 +7,8 @@ Plugin connect the FullAJAX library to Joomla! that allow simple use AJAX/AHAH t
 If you have compatibility problem with other extension or want help improve compatibility with other extension please vote  and leave your suggestion on [Joomla Idea Pool - Add some standart for JavaScript initialisation in Joomla!](http://ideas.joomla.org/forums/84261-joomla-idea-pool/suggestions/2621261-add-some-standart-for-javascript-initialisation-in)
 
 
-###External links:
+### External links:
+
 * [Demo](http://getsite.org.ua/jdemo)
 * [AddFullAJAX Joomla! plugin on JED](http://extensions.joomla.org/extensions/core-enhancements/performance/scripts/13293)
 * [AddFullAJAX Drupal module](http://drupal.org/sandbox/fedik/1543626)
